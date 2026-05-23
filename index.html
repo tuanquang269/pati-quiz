@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PATI Group — Quiz Đánh Giá Ứng Viên</title>
+<meta name="description" content="Đánh giá Resilience (vượt khó) + Curiosity (học hỏi) cho ứng viên PATI Group. 16 câu, 7-8 phút.">
+<style>
+  * { box-sizing: border-box; }
+  :root {
+    --primary: #1a5276;
+    --primary-light: #2980b9;
+    --success: #27ae60;
+    --warning: #f39c12;
+    --danger: #c0392b;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --text: #2c3e50;
+    --muted: #7f8c8d;
+    --border: #e0e6ed;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+  }
+  header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: white;
+    padding: 32px 16px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  header h1 { margin: 0 0 8px; font-size: 1.6rem; }
+  header p { margin: 4px 0; opacity: 0.95; font-size: 0.95rem; }
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  h2 { color: var(--primary); margin-top: 0; }
+  h3 { color: var(--primary); margin-top: 24px; }
+  .intro-list { padding-left: 22px; }
+  .intro-list li { margin-bottom: 8px; }
+  .meta-input {
+    display: flex; flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .meta-input label {
+    display: flex; flex-direction: column;
+    font-size: 0.92rem; font-weight: 600;
+    gap: 6px;
+  }
+  .meta-input input {
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+  }
+  .meta-input input:focus { outline: 2px solid var(--primary-light); border-color: var(--primary-light); }
+  .scale-legend {
+    background: #ecf3f9;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 16px 0 20px;
+    font-size: 0.92rem;
+    border-left: 4px solid var(--primary);
+  }
+  .scale-legend strong { color: var(--primary); }
+  .question {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .question:last-child { border-bottom: none; }
+  .q-num {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    width: 28px; height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 0.85rem; font-weight: 700;
+    margin-right: 8px;
+  }
+  .q-text {
+    font-size: 1rem;
+    margin-bottom: 14px;
+    display: inline;
+  }
+  .reverse-badge {
+    display: inline-block;
+    background: var(--warning);
+    color: white;
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-weight: 600;
+  }
+  .options {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .opt {
+    flex: 1 1 auto;
+    min-width: 90px;
+    cursor: pointer;
+  }
+  .opt input { display: none; }
+  .opt-label {
+    display: block;
+    padding: 12px 8px;
+    background: #f8f9fa;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  .opt-label:hover { border-color: var(--primary-light); background: #e8f1f8; }
+  .opt input:checked + .opt-label {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    transform: scale(1.02);
+  }
+  .opt-num { display: block; font-size: 1.4rem; font-weight: 700; margin-bottom: 2px; }
+  .opt-text { display: block; font-size: 0.72rem; opacity: 0.85; font-weight: 500; }
+  button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 8px;
+    transition: background 0.15s ease;
+    font-family: inherit;
+  }
+  button:hover { background: #154360; }
+  button:disabled { background: #95a5a6; cursor: not-allowed; }
+  button.secondary { background: var(--muted); }
+  button.secondary:hover { background: #5d6d7e; }
+  .progress {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    padding: 12px 0;
+    z-index: 10;
+    margin-bottom: 16px;
+  }
+  .progress-bar {
+    background: var(--border);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  .progress-text {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 600;
+  }
+  /* Result screen */
+  .result-hidden { display: none; }
+  .result-score {
+    text-align: center;
+    padding: 24px 16px;
+    background: linear-gradient(135deg, #f8f9fa, #ecf3f9);
+    border-radius: 12px;
+    margin: 16px 0;
+  }
+  .score-num {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+  }
+  .score-max { font-size: 1.4rem; color: var(--muted); }
+  .score-label { font-size: 1.05rem; margin-top: 6px; font-weight: 600; }
+  .badge-high { color: var(--success); }
+  .badge-mid-high { color: #d4a017; }
+  .badge-mid { color: var(--warning); }
+  .badge-low { color: var(--danger); }
+  .recommendation {
+    padding: 20px;
+    border-radius: 8px;
+    margin: 16px 0;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.05rem;
+  }
+  .rec-hire { background: #d4edda; color: #155724; border: 2px solid var(--success); }
+  .rec-ok { background: #fff3cd; color: #856404; border: 2px solid var(--warning); }
+  .rec-consider { background: #ffe5d0; color: #804000; border: 2px solid #e67e22; }
+  .rec-pass { background: #f8d7da; color: #721c24; border: 2px solid var(--danger); }
+  .subscale {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin: 12px 0;
+  }
+  .sub-card {
+    background: #f8f9fa; padding: 14px; border-radius: 8px;
+    text-align: center;
+  }
+  .sub-card-num { font-size: 1.6rem; font-weight: 700; color: var(--primary); }
+  .sub-card-label { font-size: 0.82rem; color: var(--muted); }
+  .copy-block {
+    background: #2c3e50; color: #ecf0f1;
+    padding: 16px; border-radius: 8px;
+    font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
+    font-size: 0.85rem;
+    margin: 12px 0;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .alert {
+    background: #fff3cd; border-left: 4px solid var(--warning);
+    padding: 12px 16px; border-radius: 8px; margin: 14px 0; font-size: 0.92rem;
+  }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .actions button { flex: 1 1 auto; }
+  footer {
+    text-align: center; padding: 30px 16px; color: var(--muted);
+    font-size: 0.82rem;
+  }
+  @media (max-width: 480px) {
+    .opt { min-width: 60px; }
+    .opt-label { padding: 10px 4px; font-size: 0.75rem; }
+    .opt-num { font-size: 1.2rem; }
+    .opt-text { font-size: 0.66rem; }
+    header h1 { font-size: 1.3rem; }
+    .card { padding: 18px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 PATI Group — Quiz Đánh Giá</h1>
+  <p><strong>Resilience</strong> (Vượt khó) + <strong>Curiosity</strong> (Học hỏi)</p>
+  <p>16 câu · 7-8 phút · Free public domain</p>
+</header>
+
+<div class="container">
+
+  <!-- Progress bar -->
+  <div class="progress" id="progress" style="display:none;">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-text" id="progressText">0 / 16</div>
+  </div>
+
+  <!-- INTRO SCREEN -->
+  <div id="intro" class="card">
+    <h2>👋 Chào bạn</h2>
+    <p>Bộ quiz này gồm <strong>16 câu</strong>, đo lường 2 năng lực quan trọng tại PATI Group:</p>
+    <ul class="intro-list">
+      <li><strong>Khả năng vượt khó</strong> (Resilience) — đối mặt với áp lực, thất bại</li>
+      <li><strong>Khả năng học hỏi</strong> (Curiosity) — khám phá, thích nghi với cái mới</li>
+    </ul>
+    <h3>📌 Quy tắc</h3>
+    <ul class="intro-list">
+      <li>Trả lời <strong>trung thực</strong> — không có câu đúng/sai</li>
+      <li>Không có giới hạn thời gian, nhưng đừng suy nghĩ quá lâu (10-15 giây/câu)</li>
+      <li>Trả lời theo <strong>bản thân hiện tại</strong>, không phải bản thân lý tưởng</li>
+      <li>Toàn bộ ~7-8 phút</li>
+    </ul>
+    <h3>👤 Thông tin của bạn</h3>
+    <div class="meta-input">
+      <label>Họ và tên <input type="text" id="meta_name" placeholder="VD: Nguyễn Văn A"></label>
+      <label>Email <input type="email" id="meta_email" placeholder="ban@example.com"></label>
+      <label>Vị trí ứng tuyển <input type="text" id="meta_position" placeholder="VD: Marketing Manager"></label>
+    </div>
+    <button onclick="startQuiz()">Bắt đầu →</button>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="quiz" class="result-hidden">
+    <div class="card">
+      <h2>📊 Phần A — Resilience (Vượt khó)</h2>
+      <p style="color:var(--muted); font-size:0.92rem; margin:4px 0 0;"><em>CD-RISC-10 · Connor-Davidson Resilience Scale</em></p>
+      <div class="scale-legend">
+        <strong>Trong 1 tháng qua, các phát biểu sau đúng với bạn ở mức nào?</strong><br>
+        <strong>0</strong> = Hoàn toàn không đúng · <strong>1</strong> = Hiếm khi · <strong>2</strong> = Đôi khi · <strong>3</strong> = Thường xuyên · <strong>4</strong> = Hầu như luôn luôn
+      </div>
+      <div id="sectionA"></div>
+    </div>
+
+    <div class="card">
+      <h2>🔍 Phần B — Curiosity (Học hỏi)</h2>
+      <p style="color:var(--muted); font-size:0.92rem; margin:4px 0 0;"><em>CEI-II · Curiosity and Exploration Inventory-II</em></p>
+      <div class="scale-legend">
+        <strong>Các phát biểu sau đúng với bạn ở mức nào?</strong><br>
+        <strong>1</strong> = Hoàn toàn không đúng · <strong>2</strong> = Hơi không đúng · <strong>3</strong> = Trung tính · <strong>4</strong> = Hơi đúng · <strong>5</strong> = Hoàn toàn đúng
+      </div>
+      <div id="sectionB"></div>
+    </div>
+
+    <div class="card">
+      <button id="submitBtn" onclick="submitQuiz()" disabled>Xem kết quả</button>
+      <div id="warnIncomplete" style="text-align:center; color:var(--danger); margin-top:10px; display:none; font-size:0.9rem;">
+        ⚠️ Vui lòng trả lời <span id="missingCount">0</span> câu còn thiếu
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="result" class="result-hidden">
+    <div class="card">
+      <h2>🎯 Kết quả của bạn</h2>
+      <p id="resultMeta" style="color:var(--muted);"></p>
+
+      <div class="result-score">
+        <div class="score-num"><span id="resScore">0</span><span class="score-max">/40</span></div>
+        <div class="score-label">Resilience — <span id="resLevel"></span></div>
+      </div>
+
+      <div class="result-score">
+        <div class="score-num"><span id="curScore">0</span><span class="score-max">/50</span></div>
+        <div class="score-label">Curiosity — <span id="curLevel"></span></div>
+        <div class="subscale">
+          <div class="sub-card">
+            <div class="sub-card-num"><span id="stretchScore">0</span>/25</div>
+            <div class="sub-card-label">Stretching<br><small>(chủ động tìm kiếm)</small></div>
+          </div>
+          <div class="sub-card">
+            <div class="sub-card-num"><span id="embraceScore">0</span>/25</div>
+            <div class="sub-card-label">Embracing<br><small>(đối mặt uncertainty)</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recommendation" id="recommendation"></div>
+
+      <div class="alert">
+        <strong>⚠️ Lưu ý:</strong> Đây chỉ là <strong>1 data point</strong>. Quyết định hire/pass cuối cùng cần kết hợp behavioral interview (STAR), reference check và work sample.
+      </div>
+
+      <h3>📋 Gửi kết quả cho PATI HR</h3>
+      <p>Copy đoạn dưới và gửi vào email <strong>hr@patigroup.com</strong> (hoặc người phỏng vấn của bạn):</p>
+      <div class="copy-block" id="resultPayload"></div>
+
+      <div class="actions">
+        <button onclick="copyResult()">📋 Copy kết quả</button>
+        <button onclick="downloadJSON()" class="secondary">💾 Tải file JSON</button>
+      </div>
+
+      <div class="actions" style="margin-top:14px;">
+        <button onclick="location.reload()" class="secondary">🔄 Làm lại</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Bộ quiz được PATI Group phát triển dựa trên 2 instrument validated public-domain:</p>
+    <p>CD-RISC-10 (Campbell-Sills & Stein, 2007) · CEI-II (Kashdan et al., 2009)</p>
+    <p style="margin-top:10px;">© PATI Group 2026 · v1.0</p>
+  </footer>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────
+// QUIZ DATA
+// ─────────────────────────────────────────────────────
+const QUESTIONS_A = [
+  "Tôi có thể thích nghi khi có thay đổi xảy ra.",
+  "Tôi có thể đối phó với bất cứ điều gì xảy đến.",
+  "Tôi cố gắng nhìn vào mặt hài hước/tích cực của vấn đề.",
+  "Việc phải đối mặt với căng thẳng làm tôi mạnh mẽ hơn.",
+  "Tôi có xu hướng bật trở lại sau khi gặp bệnh tật, chấn thương hoặc khó khăn.",
+  "Tôi tin mình có thể đạt được mục tiêu, ngay cả khi có trở ngại.",
+  "Dưới áp lực, tôi vẫn giữ được sự tập trung và suy nghĩ rõ ràng.",
+  "Tôi không dễ nản chí khi thất bại.",
+  "Tôi coi mình là người mạnh mẽ khi đối mặt với thử thách và khó khăn cuộc sống.",
+  "Tôi có thể xử lý những cảm xúc khó chịu hoặc đau buồn như buồn bã, sợ hãi, tức giận."
+];
+
+const SCALE_A = [
+  {num:0, label:"Không"},
+  {num:1, label:"Hiếm"},
+  {num:2, label:"Đôi khi"},
+  {num:3, label:"Thường"},
+  {num:4, label:"Luôn"}
+];
+
+const QUESTIONS_B = [
+  {text:"Tôi chủ động tìm kiếm những trải nghiệm mới và đa dạng nhất có thể.", reverse:false},
+  {text:"Tôi cảm thấy sống động nhất khi mình đang khám phá những điều mới.", reverse:false},
+  {text:"Tôi thường xuyên tìm kiếm cơ hội để thử thách bản thân và phát triển.", reverse:false},
+  {text:"Mọi nơi tôi đến, tôi đều tìm ra những điều mới hoặc trải nghiệm mới.", reverse:false},
+  {text:"Tôi xem những tình huống có vẻ đáng sợ là cơ hội để phát triển và học hỏi.", reverse:false},
+  {text:"Tôi thích những công việc đầy thử thách đến mức tôi phải mở rộng khả năng.", reverse:false},
+  {text:"Bất cứ đâu tôi cũng đang tìm kiếm những điều mới mẻ hoặc trải nghiệm mới.", reverse:false},
+  {text:"Tôi không phải là người thích những tình huống không chắc chắn.", reverse:true},
+  {text:"Tôi sẵn lòng mạo hiểm để có thêm trải nghiệm mới.", reverse:false},
+  {text:"Tôi thích trải nghiệm những cảm giác mới.", reverse:false}
+];
+
+const SCALE_B = [
+  {num:1, label:"Không"},
+  {num:2, label:"Hơi không"},
+  {num:3, label:"Trung tính"},
+  {num:4, label:"Hơi đúng"},
+  {num:5, label:"Đúng"}
+];
+
+// ─────────────────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────────────────
+function renderQuestions() {
+  const sA = document.getElementById('sectionA');
+  QUESTIONS_A.forEach((q, idx) => {
+    const i = idx + 1;
+    let opts = SCALE_A.map(s => `
+      <label class="opt">
+        <input type="radio" name="A${i}" value="${s.num}" onchange="updateProgress()">
+        <span class="opt-label"><span class="opt-num">${s.num}</span><span class="opt-text">${s.label}</span></span>
+      </label>
+    `).join('');
+    sA.innerHTML += `
+      <div class="question">
+        <span class="q-num">A${i}</span>
+        <span class="q-text">${q}</span>
+        <div class="options">${opts}</div>
+      </div>
+    `;
+  });
+
+  const sB = document.getElementById('sectionB');
+  QUESTIONS_B.forEach((q, idx) => {
+    const i = idx + 1;
+    let opts = SCALE_B.map(s => `
+      <label class="opt">
+        <input type="radio" name="B${i}" value="${s.num}" onchange="updateProgress()">
+        <span class="opt-label"><span class="opt-num">${s.num}</span><span class="opt-text">${s.label}</span></span>
+      </label>
+    `).join('');
+    sB.innerHTML += `
+      <div class="question">
+        <span class="q-num">B${i}</span>
+        <span class="q-text">${q.text}${q.reverse ? '<span class="reverse-badge">câu đảo</span>' : ''}</span>
+        <div class="options">${opts}</div>
+      </div>
+    `;
+  });
+}
+
+// ─────────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────────
+let candidate = {};
+
+function startQuiz() {
+  const name = document.getElementById('meta_name').value.trim();
+  const email = document.getElementById('meta_email').value.trim();
+  const position = document.getElementById('meta_position').value.trim();
+  if (!name || !email) {
+    alert('Vui lòng nhập họ tên và email trước khi bắt đầu.');
+    return;
+  }
+  candidate = {name, email, position: position || '(chưa điền)', startedAt: new Date().toISOString()};
+  document.getElementById('intro').classList.add('result-hidden');
+  document.getElementById('quiz').classList.remove('result-hidden');
+  document.getElementById('progress').style.display = 'block';
+  renderQuestions();
+  updateProgress();
+  window.scrollTo({top: 0, behavior:'smooth'});
+}
+
+function updateProgress() {
+  const total = 20;
+  let answered = 0;
+  for (let i = 1; i <= 10; i++) {
+    if (document.querySelector(`input[name="A${i}"]:checked`)) answered++;
+  }
+  for (let i = 1; i <= 10; i++) {
+    if (document.querySelector(`input[name="B${i}"]:checked`)) answered++;
+  }
+  const total_q = 20;
+  const pct = (answered / total_q) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${answered} / ${total_q}`;
+  const btn = document.getElementById('submitBtn');
+  const warn = document.getElementById('warnIncomplete');
+  if (answered === total_q) {
+    btn.disabled = false;
+    warn.style.display = 'none';
+  } else {
+    btn.disabled = true;
+    warn.style.display = 'block';
+    document.getElementById('missingCount').textContent = total_q - answered;
+  }
+}
+
+// ─────────────────────────────────────────────────────
+// SCORING
+// ─────────────────────────────────────────────────────
+function getAnswers(prefix, count) {
+  const ans = [];
+  for (let i = 1; i <= count; i++) {
+    const el = document.querySelector(`input[name="${prefix}${i}"]:checked`);
+    ans.push(el ? parseInt(el.value, 10) : null);
+  }
+  return ans;
+}
+
+function resilienceLevel(s) {
+  if (s >= 32) return {label:"🟢 Cao", class:"badge-high"};
+  if (s >= 25) return {label:"🟡 Trung bình-cao", class:"badge-mid-high"};
+  if (s >= 18) return {label:"🟠 Trung bình", class:"badge-mid"};
+  return {label:"🔴 Thấp", class:"badge-low"};
+}
+
+function curiosityLevel(s) {
+  if (s >= 42) return {label:"🟢 Rất cao", class:"badge-high"};
+  if (s >= 35) return {label:"🟡 Cao", class:"badge-mid-high"};
+  if (s >= 27) return {label:"🟠 Trung bình", class:"badge-mid"};
+  return {label:"🔴 Thấp", class:"badge-low"};
+}
+
+function recommendation(res, cur) {
+  const rH = res >= 25;
+  const rM = res >= 18 && res < 25;
+  const cH = cur >= 35;
+  const cM = cur >= 27 && cur < 35;
+
+  if (rH && cH) return {label:"🟢 HIRE NGAY — A-player profile", class:"rec-hire"};
+  if (rH && cM) return {label:"🟡 HIRE OK — Solid execution role", class:"rec-ok"};
+  if (rH && cur < 27) return {label:"🟠 CONSIDER — Stable role only (admin/finance)", class:"rec-consider"};
+  if (rM && cH) return {label:"🟡 HIRE OK — Mid-IC, học nhanh, chưa leadership", class:"rec-ok"};
+  if (rM && cM) return {label:"🟠 CONSIDER — Average profile, check fit", class:"rec-consider"};
+  if (rM && cur < 27) return {label:"🔴 PASS — Risk cao", class:"rec-pass"};
+  if (!rH && !rM && cH) return {label:"🟠 CAREFUL — Creative fragile, cần env hỗ trợ", class:"rec-consider"};
+  return {label:"🔴 PASS — Misfit cho PATI culture", class:"rec-pass"};
+}
+
+function submitQuiz() {
+  const aRaw = getAnswers('A', 10);
+  const bRaw = getAnswers('B', 10);
+
+  const resScore = aRaw.reduce((a,b) => a + b, 0);
+
+  // B8 (index 7) reverse-score
+  const b = [...bRaw];
+  b[7] = 6 - b[7];
+  const curScore = b.reduce((a,c) => a + c, 0);
+  const stretching = b[0] + b[2] + b[3] + b[5] + b[6];
+  const embracing = b[1] + b[4] + b[7] + b[8] + b[9];
+
+  const resL = resilienceLevel(resScore);
+  const curL = curiosityLevel(curScore);
+  const rec = recommendation(resScore, curScore);
+
+  candidate.completedAt = new Date().toISOString();
+  candidate.resilience = resScore;
+  candidate.curiosity = curScore;
+  candidate.stretching = stretching;
+  candidate.embracing = embracing;
+  candidate.recommendation = rec.label;
+  candidate.rawAnswers = { A: aRaw, B: bRaw };
+
+  // Hide quiz, show result
+  document.getElementById('quiz').classList.add('result-hidden');
+  document.getElementById('progress').style.display = 'none';
+  document.getElementById('result').classList.remove('result-hidden');
+
+  // Populate
+  document.getElementById('resultMeta').textContent =
+    `${candidate.name} · ${candidate.email} · Vị trí: ${candidate.position}`;
+  document.getElementById('resScore').textContent = resScore;
+  document.getElementById('resLevel').innerHTML = `<span class="${resL.class}">${resL.label}</span>`;
+  document.getElementById('curScore').textContent = curScore;
+  document.getElementById('curLevel').innerHTML = `<span class="${curL.class}">${curL.label}</span>`;
+  document.getElementById('stretchScore').textContent = stretching;
+  document.getElementById('embraceScore').textContent = embracing;
+
+  const recDiv = document.getElementById('recommendation');
+  recDiv.className = 'recommendation ' + rec.class;
+  recDiv.textContent = rec.label;
+
+  // Generate copy block
+  const payload =
+`═══════════════════════════════════
+PATI QUIZ — KẾT QUẢ ỨNG VIÊN
+═══════════════════════════════════
+Họ tên     : ${candidate.name}
+Email      : ${candidate.email}
+Vị trí     : ${candidate.position}
+Hoàn thành : ${new Date(candidate.completedAt).toLocaleString('vi-VN')}
+───────────────────────────────────
+RESILIENCE : ${resScore}/40 — ${resL.label}
+CURIOSITY  : ${curScore}/50 — ${curL.label}
+  ├ Stretching : ${stretching}/25
+  └ Embracing  : ${embracing}/25
+───────────────────────────────────
+RECOMMENDATION:
+${rec.label}
+───────────────────────────────────
+Raw answers:
+  A: ${aRaw.join(', ')}
+  B: ${bRaw.join(', ')} (B8 reverse-scored to ${b[7]})
+═══════════════════════════════════`;
+  document.getElementById('resultPayload').textContent = payload;
+
+  window.scrollTo({top: 0, behavior:'smooth'});
+}
+
+function copyResult() {
+  const txt = document.getElementById('resultPayload').textContent;
+  navigator.clipboard.writeText(txt).then(() => {
+    alert('✅ Đã copy kết quả! Bạn có thể paste vào email gửi PATI HR.');
+  }).catch(() => {
+    alert('Trình duyệt không hỗ trợ copy tự động. Hãy chọn text và copy thủ công.');
+  });
+}
+
+function downloadJSON() {
+  const data = JSON.stringify(candidate, null, 2);
+  const blob = new Blob([data], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const safe = candidate.name.replace(/[^a-zA-Z0-9]/g, '_');
+  a.download = `pati-quiz-${safe}-${Date.now()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
