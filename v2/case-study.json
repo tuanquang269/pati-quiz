@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "note": "1 mini case study 300 words, PATI eCommerce crisis context. 6 questions test: factual recall (2), inference (2), decision under uncertainty (2). Timer 8 phút total. Measure cognitive resilience under time pressure."
+  },
+  "case": {
+    "title": "Crisis: Amazon Seller Account Suspended",
+    "text": "PATI quản lý tài khoản Amazon US cho brand thực phẩm hữu cơ 'GreenLife'. Doanh số $120k/tháng, profit margin 22%. Ngày 15/3, Amazon suspend account với lý do 'suspected inauthentic reviews' — 8 review 5-sao trong 2 ngày bị flag.\n\nPM Emily điều tra phát hiện:\n- GreenLife không mua review.\n- 8 reviews đến từ tài khoản real, verified purchase.\n- Cùng thời điểm, competitor 'NaturePlus' (đối thủ #1 trong category) vừa launch sản phẩm tương tự giá rẻ hơn 15%.\n- 1 trong 8 reviewer có history review nhiều sản phẩm GreenLife (loyal customer), nhưng Amazon AI detect pattern 'unusual concentration'.\n\nTimeline áp lực:\n- Suspension kéo dài >7 ngày → listing bị deindex, mất keyword ranking tích lũy 18 tháng.\n- GreenLife CFO yêu cầu PATI solve trong 72h hoặc terminate contract ($15k/tháng retainer).\n- Amazon Seller Support trả lời generic: 'Submit Plan of Action (POA), review time 5-7 business days'.\n\nEmily có 3 options:\nA) Viết POA standard theo template Amazon, submit qua portal, đợi 5-7 ngày.\nB) Escalate qua Amazon Brand Registry fast-track (cần trademark proof, Emily chưa confirm GreenLife có trademark US hay chưa).\nC) Hire consultant bên thứ 3 chuyên unban Amazon ($3k fee, claim 48h resolve rate 60%, nhưng PATI chưa verify track record).\n\nNguồn lực:\n- Emily có 2 junior staff, cả 2 chưa từng handle suspension case.\n- PATI có relationship với 1 Amazon Account Manager (quen từ event), nhưng không phải AM phụ trách category thực phẩm.\n- GreenLife sẵn sàng cung cấp invoice, COA (Certificate of Analysis), nhưng không có lawyer sẵn.\n\nRisk:\n- Nếu POA bị reject lần 1 → cơ hội appeal giảm 50%.\n- Nếu listing mất >10 ngày → competitor chiếm keyword, khó recovery traffic."
+  },
+  "questions": [
+    {
+      "id": "CS1",
+      "type": "factual",
+      "question": "Doanh số tháng của GreenLife trên Amazon là bao nhiêu?",
+      "options": [
+        {"id": "a", "text": "$15k", "correct": false},
+        {"id": "b", "text": "$120k", "correct": true},
+        {"id": "c", "text": "$22k", "correct": false},
+        {"id": "d", "text": "Không đủ thông tin", "correct": false}
+      ]
+    },
+    {
+      "id": "CS2",
+      "type": "factual",
+      "question": "Lý do Amazon suspend account là gì?",
+      "options": [
+        {"id": "a", "text": "GreenLife mua fake reviews", "correct": false},
+        {"id": "b", "text": "Competitor report spam", "correct": false},
+        {"id": "c", "text": "AI detect 'unusual concentration' của reviews từ loyal customer", "correct": true},
+        {"id": "d", "text": "Sản phẩm vi phạm FDA", "correct": false}
+      ]
+    },
+    {
+      "id": "CS3",
+      "type": "inference",
+      "question": "Dựa vào case, đâu là risk lớn NHẤT nếu Emily chọn Option A (POA standard)?",
+      "options": [
+        {"id": "a", "text": "POA bị reject lần 1, khó appeal sau đó", "correct": true},
+        {"id": "b", "text": "GreenLife terminate contract trong 72h", "correct": false},
+        {"id": "c", "text": "Junior staff không đủ skill viết POA", "correct": false},
+        {"id": "d", "text": "Competitor chiếm hết market share", "correct": false}
+      ]
+    },
+    {
+      "id": "CS4",
+      "type": "inference",
+      "question": "Tại sao Emily cần verify trademark US của GreenLife trước khi chọn Option B?",
+      "options": [
+        {"id": "a", "text": "Amazon Brand Registry fast-track yêu cầu trademark proof", "correct": true},
+        {"id": "b", "text": "Để tránh bị competitor sue", "correct": false},
+        {"id": "c", "text": "GreenLife CFO yêu cầu", "correct": false},
+        {"id": "d", "text": "Không cần verify, case không đề cập", "correct": false}
+      ]
+    },
+    {
+      "id": "CS5",
+      "type": "decision",
+      "question": "Nếu bạn là Emily, bạn sẽ làm GÌ TRƯỚC TIÊN trong 24h đầu?",
+      "options": [
+        {"id": "a", "text": "Viết POA standard ngay, submit để tránh mất thêm thời gian", "correct": false},
+        {"id": "b", "text": "Call Amazon Account Manager quen biết xin advice + verify GreenLife trademark status + draft POA song song", "correct": true},
+        {"id": "c", "text": "Hire consultant $3k ngay vì 48h nhanh hơn 5-7 ngày", "correct": false},
+        {"id": "d", "text": "Email GreenLife CFO xin lùi deadline thêm 3 ngày để research kỹ", "correct": false}
+      ]
+    },
+    {
+      "id": "CS6",
+      "type": "decision",
+      "question": "Giả sử POA lần 1 bị reject. Emily nên làm gì để tăng tỷ lệ thành công appeal lần 2?",
+      "options": [
+        {"id": "a", "text": "Resubmit POA y hệt, đợi reviewer khác", "correct": false},
+        {"id": "b", "text": "Thuê lawyer viết legal letter đe dọa Amazon", "correct": false},
+        {"id": "c", "text": "Phân tích rejection reason chi tiết, bổ sung evidence (invoice, COA, email log với loyal customer), viết POA dài và cụ thể hơn", "correct": true},
+        {"id": "d", "text": "Escalate lên Amazon executive qua LinkedIn", "correct": false}
+      ]
+    }
+  ],
+  "scoring": "1 point per correct answer. Max 6. Timer 8 minutes total (case read + 6Q). Flag nếu candidate finish <3 min (rushing) hoặc timeout (stuck)."
+}

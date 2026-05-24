@@ -1,0 +1,320 @@
+{
+  "metadata": {
+    "version": "2.0",
+    "author": "PATI Group",
+    "date": "2026-05-23",
+    "note": "10 SJT scenarios for eCommerce context. Each has 4 options scored by SME ranking (0-3). Resilience scenarios = R1-R5, Curiosity scenarios = C1-C5."
+  },
+  "scenarios": [
+    {
+      "id": "R1",
+      "type": "resilience",
+      "situation": "Bạn là Account Manager, quản lý 15 brand. Tháng này Facebook Ads cost tăng đột biến 40% do iOS update, 3 brand yêu cầu họp gấp cùng lúc, và sếp vừa giao thêm 5 brand mới deadline 2 ngày. Bạn sẽ:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Nhờ đồng đội hỗ trợ 2 brand ít khẩn cấp, tập trung họp 1 brand lớn nhất trước, làm ngoài giờ để onboard 5 brand mới.",
+          "score": 3,
+          "rationale": "Prioritize + delegate + ownership — resilience cao"
+        },
+        {
+          "id": "b",
+          "text": "Email sếp xin lùi deadline 5 brand mới, họp 3 brand theo thứ tự ngẫu nhiên, xử lý Facebook issue sau khi xong meeting.",
+          "score": 1,
+          "rationale": "Delay instead of solve — weak resilience"
+        },
+        {
+          "id": "c",
+          "text": "Hủy 2 cuộc họp ít quan trọng, tập trung Facebook issue trước vì ảnh hưởng 15 brand, xin sếp 1 ngày thêm cho 5 brand mới.",
+          "score": 2,
+          "rationale": "OK tradeoff nhưng chưa tối ưu (không delegate)"
+        },
+        {
+          "id": "d",
+          "text": "Làm hết sức trong 2 ngày, nếu không kịp thì báo sếp sau. Họp 3 brand song song bằng cách ghi chép nhanh.",
+          "score": 0,
+          "rationale": "Reactive + no plan — bad resilience"
+        }
+      ]
+    },
+    {
+      "id": "C1",
+      "type": "curiosity",
+      "situation": "PATI vừa thắng thầu 1 niche mới: thực phẩm chức năng Mỹ → VN. Bạn chưa có kinh nghiệm FDA compliance. Deadline pitch client 5 ngày. Bạn sẽ:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Google nhanh 'FDA supplement Vietnam import' 2-3 giờ, lấy template từ project cũ, chỉnh sửa cho qua, pitch theo kinh nghiệm.",
+          "score": 0,
+          "rationale": "Surface learning only — low curiosity"
+        },
+        {
+          "id": "b",
+          "text": "Hỏi mentor/đồng đội có case tương tự, đọc 2-3 case study công ty khác, tổng hợp vào deck, không đào sâu vì áp lực time.",
+          "score": 1,
+          "rationale": "Passive learning — weak curiosity"
+        },
+        {
+          "id": "c",
+          "text": "Đọc FDA guideline gốc 1-2 ngày, tham gia 1 webinar miễn phí về supplement import, phỏng vấn 1-2 brand đang làm, build deck từ first principles.",
+          "score": 3,
+          "rationale": "Deep dive + multiple sources — high curiosity"
+        },
+        {
+          "id": "d",
+          "text": "Đọc regulation overview, tìm consultant FDA outsource phần compliance, tự focus vào marketing strategy (sở trường).",
+          "score": 2,
+          "rationale": "Practical learning + outsource — moderate curiosity"
+        }
+      ]
+    },
+    {
+      "id": "R2",
+      "type": "resilience",
+      "situation": "Bạn launch campaign TikTok cho brand mới. Ngày 1: CTR 0.2% (benchmark 1.2%), CPC $8 (target $3). Sếp hỏi 'sao thế?'. Bạn trả lời:",
+      "options": [
+        {
+          "id": "a",
+          "text": "'TikTok algorithm đang học, cần 3-5 ngày mới ổn định. Em sẽ monitor thêm 2 ngày.'",
+          "score": 0,
+          "rationale": "Blame external + passive — bad"
+        },
+        {
+          "id": "b",
+          "text": "'Em thấy creative chưa hook được audience. Đã test 3 variant mới hôm qua, nếu mai CTR chưa lên em pivot sang UGC style.'",
+          "score": 3,
+          "rationale": "Own issue + proactive solution — excellent"
+        },
+        {
+          "id": "c",
+          "text": "'Targeting có thể rộng quá. Em sẽ thử lại với lookalike 1% thay vì interest-based.'",
+          "score": 2,
+          "rationale": "Hypothesis + action — OK but single-threaded"
+        },
+        {
+          "id": "d",
+          "text": "'Brief từ client không rõ nên creative off. Em xin reschedule meeting với brand để align lại.'",
+          "score": 1,
+          "rationale": "Blame brief + delay fix — weak"
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "type": "curiosity",
+      "situation": "Trong meeting, CEO mention tool mới 'Triple Whale' giúp unify data 5 platform. Bạn chưa nghe bao giờ. CEO không giải thích chi tiết. Sau meeting bạn sẽ:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Google 'Triple Whale review' đọc 1 bài, note lại tên tool, quay về công việc hiện tại.",
+          "score": 1,
+          "rationale": "Minimal follow-up"
+        },
+        {
+          "id": "b",
+          "text": "Không làm gì, đợi CEO assign hoặc IT team research.",
+          "score": 0,
+          "rationale": "Zero curiosity"
+        },
+        {
+          "id": "c",
+          "text": "Đọc docs, xem demo video, sign up free trial, test với 1 brand nhỏ ngay chiều đó, email CEO summary + screenshot kết quả tối hôm đó.",
+          "score": 3,
+          "rationale": "Proactive deep dive + hands-on"
+        },
+        {
+          "id": "d",
+          "text": "Slack hỏi team data đã dùng chưa, nếu chưa thì research basic features, note vào Notion 'tools to explore'.",
+          "score": 2,
+          "rationale": "Social learning + backlog"
+        }
+      ]
+    },
+    {
+      "id": "R3",
+      "type": "resilience",
+      "situation": "Black Friday: traffic tăng 10x, website crash 2 giờ, mất $15k revenue. Client gọi điện la hét. Bạn là PM, dev team nói 'do hosting không scale được'. Bạn sẽ:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Xin lỗi client, hứa refund phí tháng này, email dev team nhờ viết postmortem, tự tìm hosting mới để migrate.",
+          "score": 3,
+          "rationale": "Apologize + own recovery + proactive fix"
+        },
+        {
+          "id": "b",
+          "text": "Bảo client 'lỗi bên hosting provider, chúng em đang xử lý', chuyển tiếp complaint cho dev team giải quyết.",
+          "score": 0,
+          "rationale": "Pass the buck — no ownership"
+        },
+        {
+          "id": "c",
+          "text": "Xin lỗi client, hứa sẽ báo cáo đầy đủ trong 24h, họp gấp dev team tối nay để fix + plan backup cho năm sau.",
+          "score": 2,
+          "rationale": "Apologize + internal fix but no immediate action"
+        },
+        {
+          "id": "d",
+          "text": "Giải thích cho client hiểu 'traffic 10x không ai predict được', xin thêm budget để upgrade hosting ngay lập tức.",
+          "score": 1,
+          "rationale": "Defensive + ask for money — weak"
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "type": "curiosity",
+      "situation": "Bạn thấy competitor PATI (công ty X) tăng trưởng 300% trong 6 tháng nhờ strategy mới chưa rõ. LinkedIn của họ hint về 'AI personalization'. Bạn sẽ:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Note lại 'công ty X đang làm tốt', theo dõi LinkedIn họ, chờ họ public case study.",
+          "score": 1,
+          "rationale": "Passive monitoring"
+        },
+        {
+          "id": "b",
+          "text": "Không quan tâm, mỗi công ty có thế mạnh riêng, tập trung vào roadmap PATI.",
+          "score": 0,
+          "rationale": "Ignore competitor — low curiosity"
+        },
+        {
+          "id": "c",
+          "text": "Thử đặt hàng qua website công ty X với fake account để trải nghiệm flow, screenshot automation emails, reverse-engineer tech stack, viết memo gửi team.",
+          "score": 3,
+          "rationale": "Hands-on competitive intel"
+        },
+        {
+          "id": "d",
+          "text": "Google 'AI personalization eCommerce', đọc 2-3 bài Shopify blog, share link vào Slack kênh #growth.",
+          "score": 2,
+          "rationale": "Topical learning + share"
+        }
+      ]
+    },
+    {
+      "id": "R4",
+      "type": "resilience",
+      "situation": "Quarterly review: bạn bị rated 'Meets Expectations' thay vì 'Exceeds' mặc dù tự thấy mình làm tốt. Sếp nói 'em thiếu proactive, chỉ làm đúng task assigned'. Bạn cảm thấy:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Thất vọng, nghĩ sếp không công bằng, tìm công ty mới trong 1-2 tháng tới.",
+          "score": 0,
+          "rationale": "Quit mentality — low resilience"
+        },
+        {
+          "id": "b",
+          "text": "Buồn 1-2 ngày, sau đó book 1-1 với sếp hỏi rõ 'proactive như thế nào', xin example cụ thể, plan 3 initiative cho Q sau.",
+          "score": 3,
+          "rationale": "Process emotion → seek clarity → action plan"
+        },
+        {
+          "id": "c",
+          "text": "Chấp nhận feedback, cố gắng làm nhiều hơn từ Q sau, không hỏi thêm.",
+          "score": 1,
+          "rationale": "Accept passively — weak"
+        },
+        {
+          "id": "d",
+          "text": "Argue với sếp bằng list 10 việc proactive đã làm, yêu cầu regrade.",
+          "score": 2,
+          "rationale": "Defend + data — OK but confrontational"
+        }
+      ]
+    },
+    {
+      "id": "C4",
+      "type": "curiosity",
+      "situation": "PATI cân nhắc mở văn phòng Thái Lan. Bạn chưa biết gì về thị trường Thái. Sếp hỏi ý kiến không formal (chat ngoài lề). Bạn sẽ:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Trả lời 'em chưa rõ thị trường Thái nên không comment được', đợi research team phân tích.",
+          "score": 0,
+          "rationale": "Dodge question — zero curiosity"
+        },
+        {
+          "id": "b",
+          "text": "Nói 'em nghĩ Thái OK vì gần VN', dựa vào cảm tính chung chung.",
+          "score": 1,
+          "rationale": "Low-effort answer"
+        },
+        {
+          "id": "c",
+          "text": "Trả lời 'em chưa biết nhưng sẽ research', tối đó đọc 3-4 report (Statista, eCommerceIQ), sáng hôm sau gửi bullet point findings cho sếp.",
+          "score": 3,
+          "rationale": "Turn question into learning opportunity"
+        },
+        {
+          "id": "d",
+          "text": "Google nhanh '1-2 fact Thái eCommerce' ngay lúc chat, reply trong 5 phút với vài con số.",
+          "score": 2,
+          "rationale": "Quick surface learning"
+        }
+      ]
+    },
+    {
+      "id": "R5",
+      "type": "resilience",
+      "situation": "Bạn pitch idea 'livestream shopping' cho PATI. Meeting 30 phút, CEO ngắt lời sau 5 phút: 'Idea này thị trường VN chưa ready, next'. Bạn sẽ:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Tức giận, thấy CEO không lắng nghe, quyết định không pitch idea nữa trong 6 tháng tới.",
+          "score": 0,
+          "rationale": "Give up — low resilience"
+        },
+        {
+          "id": "b",
+          "text": "Thất vọng nhưng chấp nhận, lưu deck lại, chờ timing tốt hơn.",
+          "score": 1,
+          "rationale": "Passive acceptance"
+        },
+        {
+          "id": "c",
+          "text": "Sau meeting email CEO: 'Em hiểu concern về timing. Đây là 3 brand VN đang làm livestream shopping thành công + data. Em nghĩ có thể pilot nhỏ 1 brand test?'",
+          "score": 3,
+          "rationale": "Bounce back + data + smaller ask"
+        },
+        {
+          "id": "d",
+          "text": "Argue ngay trong meeting: 'Nhưng anh ơi, Shopee/Lazada/TikTok đều có live rồi, VN ready mà.'",
+          "score": 2,
+          "rationale": "Persist but confrontational in wrong setting"
+        }
+      ]
+    },
+    {
+      "id": "C5",
+      "type": "curiosity",
+      "situation": "Bạn join PATI được 2 tuần. Thứ 6 chiều, office vắng, bạn rảnh 2 tiếng trước khi về. Bạn sẽ:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Lướt Facebook/TikTok cá nhân, về sớm.",
+          "score": 0,
+          "rationale": "Zero learning"
+        },
+        {
+          "id": "b",
+          "text": "Ôn lại onboarding docs, làm task assigned cho tuần sau.",
+          "score": 1,
+          "rationale": "Compliance learning"
+        },
+        {
+          "id": "c",
+          "text": "Vào Google Drive PATI, đọc hết deck/report 6 tháng gần nhất của team khác (không phải team mình), note insight vào Notion.",
+          "score": 3,
+          "rationale": "Self-directed broad exploration"
+        },
+        {
+          "id": "d",
+          "text": "Hỏi đồng đội 'có task gì em giúp không', nếu không có thì ôn skill (Excel/Ads Manager).",
+          "score": 2,
+          "rationale": "Helpful + skill building"
+        }
+      ]
+    }
+  ]
+}

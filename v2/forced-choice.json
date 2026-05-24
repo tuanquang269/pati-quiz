@@ -1,0 +1,143 @@
+{
+  "metadata": {
+    "note": "15 forced-choice quads (tetrad). Mỗi quad có 4 statements, candidate chọn 'Most like me' (+2) và 'Least like me' (-1). Traits: R1-R5 (Resilience), C1-C5 (Curiosity), L1-L3 (Lie scale - social desirability check)."
+  },
+  "quads": [
+    {
+      "id": "Q1",
+      "statements": [
+        {"text": "Tôi thích những công việc có rủi ro cao nhưng learning curve steep.", "trait": "C", "weight": 1},
+        {"text": "Dưới áp lực deadline, tôi làm việc hiệu quả hơn bình thường.", "trait": "R", "weight": 1},
+        {"text": "Tôi luôn giữ lời hứa, 100% thời gian.", "trait": "L", "weight": 1},
+        {"text": "Tôi thích ổn định hơn là thử nghiệm cái mới.", "trait": "C", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q2",
+      "statements": [
+        {"text": "Khi thất bại, tôi thường phân tích xem sai ở đâu thay vì buồn.", "trait": "R", "weight": 1},
+        {"text": "Tôi chủ động đọc tài liệu ngoài scope công việc để hiểu big picture.", "trait": "C", "weight": 1},
+        {"text": "Tôi không bao giờ nói dối, kể cả lời nói xã giao.", "trait": "L", "weight": 1},
+        {"text": "Tôi dễ nản lòng nếu kết quả không như mong đợi.", "trait": "R", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q3",
+      "statements": [
+        {"text": "Tôi thích hỏi 'tại sao' hơn là chấp nhận SOP có sẵn.", "trait": "C", "weight": 1},
+        {"text": "Tôi có thể giữ bình tĩnh khi nhiều việc xảy ra cùng lúc.", "trait": "R", "weight": 1},
+        {"text": "Tôi luôn làm việc chăm chỉ hơn mọi người xung quanh.", "trait": "L", "weight": 1},
+        {"text": "Tôi thích làm việc đã quen thuộc hơn là học tool mới.", "trait": "C", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q4",
+      "statements": [
+        {"text": "Khi gặp vấn đề chưa biết, tôi excited hơn là lo lắng.", "trait": "C", "weight": 1},
+        {"text": "Tôi bounce back nhanh sau khi nhận feedback tiêu cực.", "trait": "R", "weight": 1},
+        {"text": "Tôi thích học từ sai lầm của người khác hơn là tự mắc lỗi.", "trait": "C", "weight": 0.5},
+        {"text": "Tôi cần thời gian dài để recover sau một thất bại lớn.", "trait": "R", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q5",
+      "statements": [
+        {"text": "Tôi thường tìm hiểu về competitors ngay cả khi không được assign.", "trait": "C", "weight": 1},
+        {"text": "Tôi có thể làm việc hiệu quả ngay cả khi thiếu ngủ hoặc stress.", "trait": "R", "weight": 1},
+        {"text": "Tôi chưa bao giờ cảm thấy ghen tị với thành công của người khác.", "trait": "L", "weight": 1},
+        {"text": "Tôi thích làm việc theo checklist rõ ràng hơn là tự explore.", "trait": "C", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q6",
+      "statements": [
+        {"text": "Khi project fail, tôi tự đặt câu hỏi 'mình đã học được gì'.", "trait": "R", "weight": 1},
+        {"text": "Tôi xem video/đọc blog ngành ngoài giờ làm việc.", "trait": "C", "weight": 1},
+        {"text": "Khi được khen, tôi thường nghĩ mình xứng đáng.", "trait": "R", "weight": 0.5},
+        {"text": "Tôi dễ từ bỏ khi gặp obstacle quá nhiều lần.", "trait": "R", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q7",
+      "statements": [
+        {"text": "Tôi thích đặt câu hỏi trong meeting ngay cả khi sợ 'hỏi ngu'.", "trait": "C", "weight": 1},
+        {"text": "Tôi giữ được động lực ngay cả khi team morale thấp.", "trait": "R", "weight": 1},
+        {"text": "Tôi coi challenge như cơ hội grow hơn là mối đe dọa.", "trait": "R", "weight": 1},
+        {"text": "Tôi ít khi đọc tài liệu dài vì không có thời gian.", "trait": "C", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q8",
+      "statements": [
+        {"text": "Tôi sign up course/webinar mới ngay khi thấy topic thú vị.", "trait": "C", "weight": 1},
+        {"text": "Tôi có thể chuyển đổi nhanh giữa nhiều task khác nhau.", "trait": "R", "weight": 1},
+        {"text": "Tôi thích làm việc với những người cùng sở thích hơn là người khác quan điểm.", "trait": "C", "weight": -0.5},
+        {"text": "Khi overwhelmed, tôi cần nghỉ vài ngày mới quay lại được.", "trait": "R", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q9",
+      "statements": [
+        {"text": "Tôi thử nghiệm tool/tactic mới ngay cả khi chưa ai trong team dùng.", "trait": "C", "weight": 1},
+        {"text": "Tôi xem setback như feedback, không phải failure.", "trait": "R", "weight": 1},
+        {"text": "Tôi luôn đi đúng giờ, chưa từng trễ hẹn một lần nào.", "trait": "L", "weight": 1},
+        {"text": "Tôi thích role rõ ràng hơn là role mơ hồ cần tự định nghĩa.", "trait": "C", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q10",
+      "statements": [
+        {"text": "Tôi đọc postmortem của team khác để học cách họ handle crisis.", "trait": "C", "weight": 1},
+        {"text": "Khi dự án bị cancel, tôi nhanh chóng pivot sang việc khác.", "trait": "R", "weight": 1},
+        {"text": "Tôi cảm thấy thoải mái khi không biết câu trả lời.", "trait": "C", "weight": 1},
+        {"text": "Tôi cần encouragement từ sếp để duy trì motivation.", "trait": "R", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q11",
+      "statements": [
+        {"text": "Tôi tự research solution trước khi hỏi đồng đội.", "trait": "C", "weight": 1},
+        {"text": "Tôi có thể handle nhiều ưu tiên mâu thuẫn cùng lúc.", "trait": "R", "weight": 1},
+        {"text": "Tôi thích deadline rõ ràng hơn là tự set pace.", "trait": "R", "weight": 0.5},
+        {"text": "Tôi ít khi explore feature mới của tool đang dùng.", "trait": "C", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q12",
+      "statements": [
+        {"text": "Tôi subscribe newsletter/podcast ngành để update trend.", "trait": "C", "weight": 1},
+        {"text": "Khi bị reject idea, tôi refine và pitch lại thay vì bỏ cuộc.", "trait": "R", "weight": 1},
+        {"text": "Tôi không bao giờ phàn nàn về công việc với đồng nghiệp.", "trait": "L", "weight": 1},
+        {"text": "Tôi dễ stress khi có quá nhiều uncertainty.", "trait": "R", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q13",
+      "statements": [
+        {"text": "Tôi chủ động shadowing người khác team để học workflow.", "trait": "C", "weight": 1},
+        {"text": "Tôi maintain performance ổn định ngay cả trong giai đoạn khó khăn cá nhân.", "trait": "R", "weight": 1},
+        {"text": "Tôi thích góp ý cải thiện process hiện tại.", "trait": "C", "weight": 1},
+        {"text": "Tôi tránh conflict bằng cách giữ im lặng.", "trait": "R", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q14",
+      "statements": [
+        {"text": "Tôi test competitor product để học UX/strategy của họ.", "trait": "C", "weight": 1},
+        {"text": "Khi plan A fail, tôi đã sẵn plan B và C trong đầu.", "trait": "R", "weight": 1},
+        {"text": "Tôi thấy mình adaptable hơn nhiều người cùng team.", "trait": "R", "weight": 0.5},
+        {"text": "Tôi chỉ học khi có assignment cụ thể.", "trait": "C", "weight": -1}
+      ]
+    },
+    {
+      "id": "Q15",
+      "statements": [
+        {"text": "Cuối tuần tôi thường đọc case study hoặc thử side project nhỏ.", "trait": "C", "weight": 1},
+        {"text": "Tôi có năng lượng tốt ngay cả sau 1 tuần áp lực cao.", "trait": "R", "weight": 1},
+        {"text": "Tôi luôn hoàn thành mọi việc đúng hạn, chưa bao giờ trễ.", "trait": "L", "weight": 1},
+        {"text": "Tôi cần môi trường yên tĩnh để làm việc hiệu quả.", "trait": "R", "weight": -0.5}
+      ]
+    }
+  ],
+  "scoring_note": "For each quad: Most=+2, Least=-1. Sum by trait: R_score = sum(R statements chosen as Most)*2 - sum(R statements chosen as Least)*1. Max R = ~15-18, Max C = ~15-18. Lie scale (L): nếu candidate chọn ≥2 items L làm 'Most' → faking flag."
+}

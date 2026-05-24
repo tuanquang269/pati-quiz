@@ -1,0 +1,64 @@
+{
+  "metadata": {
+    "note": "1 open-ended STAR question, 150-200 từ. Đo Curiosity quality qua: (1) Specificity, (2) Action ownership, (3) Learning extracted, (4) Curiosity demonstrated. Scored 0-2 per criteria, max 8."
+  },
+  "question": {
+    "prompt": "Kể về một lần gần đây nhất bạn tự mình học một kỹ năng hoặc kiến thức MỚI (không phải training công ty assign) để giải quyết vấn đề công việc hoặc cá nhân. Viết 150-200 từ, bao gồm:\n\n- Tình huống cụ thể (gì, khi nào, tại sao cần học)\n- Bạn đã học như thế nào (nguồn, phương pháp, thời gian)\n- Kết quả sau khi áp dụng\n- Bạn học được gì từ quá trình này (ngoài kỹ năng đó)",
+    "minWords": 150,
+    "maxWords": 250,
+    "timeLimit": "5 phút"
+  },
+  "rubric": [
+    {
+      "criterion": "Specificity (Tình huống cụ thể)",
+      "0": "Mơ hồ, không có timeline, context chung chung (VD: 'Tôi học Excel để làm report tốt hơn')",
+      "1": "Có timeline + context nhưng thiếu chi tiết vấn đề (VD: 'Tháng 3 năm nay tôi học pivot table vì sếp yêu cầu')",
+      "2": "Rõ ràng: timeline + vấn đề cụ thể + tại sao skill hiện tại không đủ (VD: 'Tháng 3/2026, client yêu cầu dashboard real-time tracking 50 SKU, Excel cũ không handle được dataset 100k rows, tôi phải học Power BI')"
+    },
+    {
+      "criterion": "Action ownership (Bạn đã học NTN)",
+      "0": "Passive hoặc không nói rõ (VD: 'Tôi tìm hiểu trên mạng')",
+      "1": "Nói rõ 1-2 nguồn nhưng không có method (VD: 'Tôi xem YouTube và đọc blog')",
+      "2": "Multi-source + method rõ ràng + time investment (VD: 'Tôi hoàn thành Udemy course 8h, làm 3 mini-project mẫu, hỏi 2 anh/chị đang dùng Power BI để review dashboard mình build, tổng 15 giờ trong 1 tuần')"
+    },
+    {
+      "criterion": "Kết quả sau khi áp dụng",
+      "0": "Không đề cập kết quả hoặc quá chung chung (VD: 'Tôi làm được dashboard')",
+      "1": "Có kết quả nhưng không đo lường được (VD: 'Client hài lòng với dashboard')",
+      "2": "Kết quả cụ thể, đo lường được (VD: 'Dashboard giảm thời gian client check data từ 2h/ngày xuống 15 phút, client renew contract 6 tháng thêm $8k')"
+    },
+    {
+      "criterion": "Learning extracted (Học được gì NGOÀI skill đó)",
+      "0": "Không đề cập hoặc chỉ nói 'học được nhiều thứ' (generic)",
+      "1": "Nói 1 insight nhưng surface-level (VD: 'Tôi học được là cần chủ động học')",
+      "2": "Insight sâu, transferable (VD: 'Tôi nhận ra việc hỏi người có kinh nghiệm review giúp tôi tránh được 80% sai lầm cơ bản mà tự mò sẽ mất 3-4 ngày. Từ đó tôi áp dụng pattern này cho mọi skill mới: learn 60% qua course → build MVP → xin feedback sớm thay vì học xong 100% mới làm')"
+    }
+  ],
+  "flags": [
+    {
+      "name": "word_count_too_low",
+      "condition": "<80 từ",
+      "action": "Score -2 penalty"
+    },
+    {
+      "name": "copy_paste_detected",
+      "condition": "Xuất hiện format markdown/HTML rõ ràng, hoặc text giống boilerplate (VD: 'As a passionate professional...', 'In today's fast-paced environment...')",
+      "action": "Flag for manual review"
+    },
+    {
+      "name": "no_curiosity_demonstrated",
+      "condition": "Câu chuyện chỉ nói về skill technical, không có dấu hiệu curiosity (VD: chỉ học vì bị ép, không explore thêm, không hỏi thêm)",
+      "action": "Max score = 4/8"
+    }
+  ],
+  "example_high_score": {
+    "text": "Tháng 2/2026, agency tôi làm mất 1 client vì dashboard Google Data Studio load chậm (dataset 500k rows). Tôi research 3 tool thay thế: Power BI, Tableau, Looker. Chọn Power BI vì integrate tốt với Azure mà client đang dùng.\n\nTôi dành 1 tuần tự học: hoàn thành Udemy course 'Power BI A-Z' (10h), đọc Microsoft docs về data modeling (5h), build 2 dashboard demo với data mẫu, rồi nhờ anh lead review và chỉ ra 4 lỗi performance (index wrong, query chưa tối ưu). Fix xong, tôi pitch lại client bằng live demo dashboard real-time.\n\nKết quả: dashboard load time từ 45s xuống 3s, client impressed và refer thêm 2 brand bạn (tổng revenue thêm $12k). Tôi học được rằng: (1) hỏi người có kinh nghiệm review sớm giúp tránh 80% pitfall, (2) demo > slide khi pitch technical solution, (3) việc research tool alternatives thay vì chỉ fix tool cũ mở ra nhiều option hơn.\n\nTừ đó tôi áp dụng pattern 'learn 60% → build MVP → xin feedback' cho mọi skill mới thay vì học xong 100% mới làm.",
+    "score_breakdown": {
+      "specificity": 2,
+      "action": 2,
+      "result": 2,
+      "learning": 2,
+      "total": 8
+    }
+  }
+}

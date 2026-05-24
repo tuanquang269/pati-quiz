@@ -14,9 +14,10 @@ Interactive web quiz đánh giá ứng viên PATI Group, kết hợp 2 validated
 - 🔒 Privacy-first: data chỉ chạy trong browser, không gửi đâu cả
 - 📋 Copy/download kết quả gửi HR
 
-## 🚀 Live demo
+## 🚀 Live demos
 
-👉 **https://tuanquang269.github.io/pati-quiz/**
+- **v1** (CD-RISC-10 + CEI-II, 16 câu, ~8 phút) → 👉 https://tuanquang269.github.io/pati-quiz/
+- **v2** (Multi-method hybrid: SJT + Forced-choice + Case + STAR, 51 inputs, ~33 phút, anti-faking) → 👉 https://tuanquang269.github.io/pati-quiz/v2/
 
 ## 📊 Scoring
 

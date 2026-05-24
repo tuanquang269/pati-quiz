@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>PATI Assessment v2 — Resilience & Curiosity</title>
+<meta name="description" content="PATI Group multi-method candidate assessment: SJT + Forced-choice + Case study + STAR. 35 phút.">
+<style>
+* { box-sizing: border-box; }
+:root {
+  --primary: #1a3a5c;
+  --primary-l: #2980b9;
+  --success: #27ae60;
+  --warning: #f39c12;
+  --danger: #e74c3c;
+  --bg: #f4f6f9;
+  --card: #fff;
+  --text: #2c3e50;
+  --muted: #7f8c8d;
+  --border: #dce1e8;
+}
+body { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif; margin:0; padding:0; background:var(--bg); color:var(--text); line-height:1.55; }
+.hide { display:none !important; }
+header { background:linear-gradient(135deg,var(--primary),var(--primary-l)); color:#fff; padding:28px 16px; text-align:center; }
+header h1 { margin:0 0 4px; font-size:1.4rem; }
+header p { margin:2px 0; opacity:.9; font-size:.9rem; }
+.container { max-width:800px; margin:0 auto; padding:16px 12px 50px; }
+.card { background:var(--card); border-radius:12px; padding:24px 20px; margin-bottom:14px; box-shadow:0 2px 6px rgba(0,0,0,.06); }
+
+/* Timer bar */
+.timer-bar { position:sticky; top:0; z-index:20; background:var(--primary); color:#fff; padding:10px 16px; display:flex; justify-content:space-between; align-items:center; font-size:.85rem; font-weight:600; }
+.timer-warn { background:var(--danger) !important; }
+.timer-sec { font-variant-numeric:tabular-nums; }
+
+/* Phase badge */
+.phase-badge { display:inline-block; background:var(--primary); color:#fff; border-radius:20px; padding:4px 14px; font-size:.75rem; font-weight:700; margin-bottom:12px; }
+
+/* Progress */
+.progress-bar-bg { height:8px; background:var(--border); border-radius:4px; margin:12px 0 20px; overflow:hidden; }
+.progress-bar-fill { height:100%; background:linear-gradient(90deg,var(--primary),var(--primary-l)); border-radius:4px; transition:width .3s; width:0; }
+
+h2 { margin:0 0 4px; font-size:1.1rem; color:var(--primary); }
+h3 { margin:16px 0 8px; font-size:.95rem; color:var(--primary); }
+
+/* Meta form */
+.meta-grid { display:grid; gap:10px; grid-template-columns:1fr 1fr; }
+.meta-grid label { display:flex; flex-direction:column; font-size:.85rem; font-weight:600; gap:4px; }
+.meta-grid label.full { grid-column:1/-1; }
+.meta-grid input, .meta-grid select { padding:10px 12px; border:1px solid var(--border); border-radius:8px; font-size:.95rem; font-family:inherit; }
+
+/* Buttons */
+.btn { display:inline-block; padding:14px 28px; font-size:1rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; font-family:inherit; transition:opacity .15s, transform .1s; }
+.btn:active { transform:scale(.97); }
+.btn-primary { background:var(--primary); color:#fff; width:100%; }
+.btn-primary:hover { opacity:.9; }
+.btn-primary:disabled { background:#95a5a6; cursor:not-allowed; opacity:.6; }
+.btn-secondary { background:var(--muted); color:#fff; }
+.btn-secondary:hover { opacity:.85; }
+.btn-sm { padding:10px 18px; font-size:.85rem; }
+
+/* SJT options */
+.opt-group { margin-top:12px; display:flex; flex-direction:column; gap:10px; }
+.opt-item { display:flex; align-items:center; gap:12px; padding:14px 14px; background:#f8f9fa; border:2px solid var(--border); border-radius:10px; cursor:pointer; transition:all .15s; }
+.opt-item:hover { border-color:var(--primary-l); background:#eaf2fa; }
+.opt-item.active { border-color:var(--primary); background:#dce9f5; }
+.opt-item .circle { width:22px; height:22px; border-radius:50%; border:2px solid var(--muted); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:700; color:var(--muted); }
+.opt-item.active .circle { border-color:var(--primary); background:var(--primary); color:#fff; }
+.opt-item .opt-text { font-size:.9rem; line-height:1.4; }
+.q-item { padding:13px 0; border-bottom:1px solid var(--border); }
+.q-item:last-child { border-bottom:none; }
+.q-tag { display:inline-block; font-size:.7rem; font-weight:600; padding:2px 8px; border-radius:4px; margin-left:6px; text-transform:uppercase; }
+.q-tag-R { background:#d4edda; color:#155724; }
+.q-tag-C { background:#cce5ff; color:#004085; }
+
+/* Forced-choice quad */
+.quad { margin-bottom:20px; padding:16px; background:#f8f9fa; border-radius:10px; border:1px solid var(--border); }
+.quad h4 { margin:0 0 12px; font-size:.85rem; color:var(--muted); text-align:center; }
+.quad .opt-group { gap:6px; }
+.quad .opt-item { padding:10px 12px; }
+.quad .opt-item .circle { width:18px; height:18px; font-size:.65rem; }
+.quad .opt-item .opt-text { font-size:.85rem; }
+.quad .opt-item.most { border-color:var(--success); background:#d4edda; }
+.quad .opt-item.most .circle { border-color:var(--success); background:var(--success); color:#fff; }
+.quad .opt-item.least { border-color:var(--danger); background:#f8d7da; }
+.quad .opt-item.least .circle { border-color:var(--danger); background:var(--danger); color:#fff; }
+
+/* Case */
+.case-box { background:#f4f6f9; border-left:4px solid var(--primary); padding:18px 16px; border-radius:8px; font-size:.9rem; line-height:1.7; margin:12px 0 18px; max-height:350px; overflow-y:auto; }
+.case-q { margin:14px 0; padding:14px 14px; background:#f8f9fa; border-radius:8px; border:1px solid var(--border); }
+.case-q h4 { margin:0 0 10px; font-size:.9rem; }
+.case-q .opt-group { gap:6px; }
+.case-q .opt-item { padding:10px 12px; }
+.case-q .opt-item .circle { width:18px; height:18px; font-size:.65rem; }
+.case-q .opt-item .opt-text { font-size:.85rem; }
+
+/* STAR */
+.star-area { width:100%; min-height:160px; padding:14px; font-size:.92rem; font-family:inherit; border:2px solid var(--border); border-radius:10px; resize:vertical; }
+.star-char { font-size:.78rem; color:var(--muted); text-align:right; }
+
+/* Flags */
+.flag-box { background:#fff3cd; border:2px solid var(--warning); border-radius:10px; padding:14px 16px; margin:10px 0; display:flex; gap:10px; align-items:flex-start; font-size:.8rem; }
+.flag-box.danger { background:#f8d7da; border-color:var(--danger); }
+
+/* Result */
+.result-grid { display:grid; gap:12px; grid-template-columns:1fr 1fr; }
+.result-card { padding:16px; border-radius:10px; text-align:center; }
+.result-card h3 { margin:0 0 4px; font-size:.85rem; color:var(--muted); }
+.result-card .num { font-size:2rem; font-weight:800; }
+.result-card .num-label { font-size:.8rem; color:var(--muted); }
+.bg-success { background:#d4edda; }
+.bg-info { background:#dce9f5; }
+.rec-box { padding:18px; border-radius:10px; font-weight:700; font-size:1rem; text-align:center; margin:10px 0; }
+.rec-hire { background:#d4edda; color:#155724; border:2px solid var(--success); }
+.rec-ok { background:#fff3cd; color:#856404; border:2px solid var(--warning); }
+.rec-consider { background:#ffe5d0; color:#804000; border:2px solid #e67e22; }
+.rec-pass { background:#f8d7da; color:#721c24; border:2px solid var(--danger); }
+table.score-table { width:100%; border-collapse:collapse; margin:12px 0; font-size:.88rem; }
+.score-table th, .score-table td { padding:8px 10px; border:1px solid var(--border); text-align:center; }
+.score-table th { background:var(--primary); color:#fff; }
+.copy-area { background:#2c3e50; color:#ecf0f1; padding:16px; border-radius:8px; font-family:'SF Mono',Menlo,Monaco,Consolas,monospace; font-size:.82rem; white-space:pre-wrap; word-break:break-all; margin:12px 0; max-height:300px; overflow-y:auto; }
+.action-row { display:flex; gap:10px; flex-wrap:wrap; margin:12px 0; }
+.action-row .btn { flex:1; }
+footer { text-align:center; padding:30px 16px; color:var(--muted); font-size:.78rem; }
+
+@media(max-width:500px){
+  .meta-grid { grid-template-columns:1fr; }
+  .result-grid { grid-template-columns:1fr; }
+  .action-row { flex-direction:column; }
+  .opt-item { padding:10px 10px; }
+  .case-box { max-height:280px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 PATI Group Candidate Assessment</h1>
+  <p>4 phương pháp · Resilience + Curiosity · ~33 phút</p>
+</header>
+
+<div class="container">
+
+<!-- Timer bar -->
+<div id="timerBar" class="timer-bar hide">
+  <span id="phaseLabel">Phần 1/4</span>
+  <span id="timerDisplay" class="timer-sec">⏱ 12:00</span>
+</div>
+
+<!-- INTRO -->
+<div id="screen-intro" class="card">
+  <h2>👋 Chào bạn,</h2>
+  <p>Bài đánh giá này kết hợp <strong>4 phương pháp</strong> để đo Resilience (vượt khó) và Curiosity (học hỏi) trong môi trường eCommerce thực tế.</p>
+  <table class="score-table">
+    <tr><th>Phần</th><th>PP</th><th>Nội dung</th><th>TG</th></tr>
+    <tr><td>1</td><td>SJT</td><td>10 tình huống eCommerce</td><td>12'</td></tr>
+    <tr><td>2</td><td>Forced-choice</td><td>15 bộ chọn Most/Least</td><td>8'</td></tr>
+    <tr><td>3</td><td>Case study</td><td>1 crisis + 6 câu</td><td>8'</td></tr>
+    <tr><td>4</td><td>STAR</td><td>1 tự luận 150-200 từ</td><td>5'</td></tr>
+    <tr><td></td><td></td><td><strong>Tổng</strong></td><td><strong>~33'</strong></td></tr>
+  </table>
+  <div class="meta-grid" style="margin-top:16px;">
+    <label>Họ tên <input id="m_name" placeholder="Nguyễn Văn A"></label>
+    <label>Email <input id="m_email" placeholder="you@example.com"></label>
+    <label>Vị trí <input id="m_role" placeholder="E-Commerce Manager"></label>
+    <label class="full">Kinh nghiệm eCom <select id="m_exp">
+      <option>&lt;1 năm</option><option>1-3 năm</option><option>3-5 năm</option><option selected>5-10 năm</option><option>&gt;10 năm</option>
+    </select></label>
+  </div>
+  <button class="btn btn-primary" onclick="startQuiz()" style="margin-top:18px;">🚀 Bắt đầu</button>
+</div>
+
+<!-- PHASE 1: SJT -->
+<div id="screen-sjt" class="hide card">
+  <span class="phase-badge">Phần 1/4 — SJT</span>
+  <h2>Tình huống</h2>
+  <p style="font-size:.85rem; color:var(--muted);">Chọn cách bạn xử lý. Không có câu đúng tuyệt đối.</p>
+  <div class="progress-bar-bg"><div id="sjtProgress" class="progress-bar-fill"></div></div>
+  <div id="sjtContainer"></div>
+  <button class="btn btn-primary" id="sjtNextBtn" onclick="sjtNext()" style="margin-top:8px;">Tiếp →</button>
+</div>
+
+<!-- PHASE 2: FC -->
+<div id="screen-fc" class="hide card">
+  <span class="phase-badge">Phần 2/4 — Forced-choice</span>
+  <h2>Chọn Most & Least</h2>
+  <p style="font-size:.85rem; color:var(--muted);">Mỗi bộ <strong>4 câu</strong>: chọn 1 <strong>đúng nhất</strong> (Most) và 1 <strong>ít đúng nhất</strong> (Least).</p>
+  <div class="progress-bar-bg"><div id="fcProgress" class="progress-bar-fill"></div></div>
+  <div id="fcContainer"></div>
+  <button class="btn btn-primary" id="fcNextBtn" onclick="fcNext()" style="margin-top:8px;">Tiếp →</button>
+</div>
+
+<!-- PHASE 3: CASE -->
+<div id="screen-case" class="hide">
+  <div class="card">
+    <span class="phase-badge">Phần 3/4 — Case Study</span>
+    <h2>Đọc case và trả lời</h2>
+    <p style="font-size:.85rem; color:var(--muted);">⏱ <strong>8 phút</strong> — tự động submit khi hết giờ.</p>
+    <div class="case-box" id="caseText">Đang tải...</div>
+    <div id="caseQuestions"></div>
+    <button class="btn btn-primary" id="caseSubmitBtn" onclick="caseSubmit()">✅ Submit</button>
+  </div>
+</div>
+
+<!-- PHASE 4: STAR -->
+<div id="screen-star" class="hide card">
+  <span class="phase-badge">Phần 4/4 — Open-ended STAR</span>
+  <h2>Kể về lần bạn tự học kỹ năng mới</h2>
+  <p style="font-size:.88rem;">Viết <strong>150-200 từ</strong>, gồm: tình huống → cách học → kết quả → bài học.</p>
+  <textarea id="starAnswer" class="star-area" placeholder="Viết tại đây..." maxlength="2000" oninput="starCount()"></textarea>
+  <div class="star-char"><span id="starCount">0</span> từ (min 150)</div>
+  <button class="btn btn-primary" id="starSubmitBtn" onclick="starSubmit()" style="margin-top:12px;">✅ Hoàn tất</button>
+</div>
+
+<!-- RESULT -->
+<div id="screen-result" class="hide">
+  <div class="card">
+    <h2>🎯 Kết quả</h2>
+    <p style="color:var(--muted);" id="resultMeta"></p>
+    <div id="validityFlags"></div>
+    <div class="result-grid">
+      <div class="result-card bg-success">
+        <h3>Resilience</h3>
+        <div class="num"><span id="rScore">0</span><span class="num-label">/44</span></div>
+        <span id="rLevel"></span>
+      </div>
+      <div class="result-card bg-info">
+        <h3>Curiosity</h3>
+        <div class="num"><span id="cScore">0</span><span class="num-label">/38</span></div>
+        <span id="cLevel"></span>
+      </div>
+    </div>
+    <div id="recBox" class="rec-box"></div>
+    <h3>📊 Chi tiết</h3>
+    <table class="score-table">
+      <tr><th>Phần</th><th>Điểm</th><th>Tối đa</th></tr>
+      <tr><td>1. SJT R</td><td id="p1r">0</td><td>15</td></tr>
+      <tr><td>1. SJT C</td><td id="p1c">0</td><td>15</td></tr>
+      <tr><td>2. FC R</td><td id="p2r">0</td><td>18</td></tr>
+      <tr><td>2. FC C</td><td id="p2c">0</td><td>18</td></tr>
+      <tr><td>3. Case</td><td id="p3">0</td><td>11</td></tr>
+      <tr><td>4. STAR</td><td id="p4">0</td><td>8</td></tr>
+      <tr><td><strong>Tổng R</strong></td><td><strong id="totalR">0</strong></td><td><strong>44</strong></td></tr>
+      <tr><td><strong>Tổng C</strong></td><td><strong id="totalC">0</strong></td><td><strong>38</strong></td></tr>
+    </table>
+    <h3>📋 Gửi PATI HR</h3>
+    <div class="copy-area" id="resultPayload"></div>
+    <div class="action-row">
+      <button class="btn btn-primary btn-sm" onclick="copyResult()">📋 Copy</button>
+      <button class="btn btn-secondary btn-sm" onclick="location.reload()">🔄 Làm lại</button>
+    </div>
+  </div>
+  <footer>© PATI Group 2026 · v2.0 multi-method</footer>
+</div>
+
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const SJT = [
+  {id:"R1",type:"R",sit:"Bạn là AM, quản lý 15 brand. Facebook Ads cost tăng 40% do iOS update, 3 brand họp gấp, sếp giao 5 brand mới deadline 2 ngày. Bạn sẽ:",opts:[
+    {t:"Nhờ đồng đội hỗ trợ brand ít khẩn, tập trung brand lớn nhất, OT onboard 5 brand mới.",s:3},
+    {t:"Xin lùi deadline 5 brand mới, họp 3 brand ngẫu nhiên, xử lý Facebook issue sau.",s:1},
+    {t:"Hủy 2 họp ít quan trọng, focus Facebook issue, xin 1 ngày thêm cho 5 brand.",s:2},
+    {t:"Làm hết sức 2 ngày, báo sếp sau nếu không kịp.",s:0}]},
+  {id:"C1",type:"C",sit:"PATI thắng thầu TPCN Mỹ→VN. Chưa có kinh nghiệm FDA. Deadline pitch 5 ngày. Bạn sẽ:",opts:[
+    {t:"Google 2-3h, template cũ, sửa qua.",s:0},
+    {t:"Hỏi mentor, đọc 2-3 case, tổng hợp deck.",s:1},
+    {t:"Đọc FDA guideline gốc, webinar, phỏng vấn brand đang làm, build first principles.",s:3},
+    {t:"Đọc overview, thuê consultant FDA, focus marketing.",s:2}]},
+  {id:"R2",type:"R",sit:"Launch TikTok: CTR 0.2% (benchmark 1.2%). Sếp hỏi. Bạn:",opts:[
+    {t:"'TikTok algorithm học, cần 3-5 ngày.'",s:0},
+    {t:"'Creative chưa hook. Test 3 variant, nếu chưa lên pivot UGC.'",s:3},
+    {t:"'Targeting rộng. Thử lookalike 1%.'",s:2},
+    {t:"'Brief client không rõ. Xin reschedule meeting.'",s:1}]},
+  {id:"C2",type:"C",sit:"CEO mention 'Triple Whale' tool. Chưa nghe. CEO không giải thích. Bạn:",opts:[
+    {t:"Google review, đọc 1 bài, note lại.",s:1},
+    {t:"Không làm gì, đợi assign.",s:0},
+    {t:"Đọc docs, demo, sign up free trial, test brand, email CEO summary tối đó.",s:3},
+    {t:"Hỏi team dùng chưa, note Notion 'tools'.",s:2}]},
+  {id:"R3",type:"R",sit:"Black Friday: traffic 10x, site crash 2h mất $15k. Client la hét. PM:",opts:[
+    {t:"Xin lỗi, hứa refund, dev postmortem, tự tìm hosting mới.",s:3},
+    {t:"'Lỗi hosting, đang xử lý', chuyển complaint cho dev.",s:0},
+    {t:"Xin lỗi, hứa báo cáo 24h, họp dev fix.",s:2},
+    {t:"'Không predict được 10x', xin budget upgrade.",s:1}]},
+  {id:"C3",type:"C",sit:"Competitor tăng 300% nhờ 'AI personalization'. Bạn:",opts:[
+    {t:"Theo dõi LinkedIn, chờ case study.",s:1},
+    {t:"Không quan tâm.",s:0},
+    {t:"Thử đặt hàng competitor với fake account, reverse-engineer, memo team.",s:3},
+    {t:"Google 'AI eCommerce', đọc 2-3 bài, share Slack.",s:2}]},
+  {id:"R4",type:"R",sit:"Quarterly review: 'Meets' thay vì 'Exceeds'. Sếp nói 'thiếu proactive'. Bạn:",opts:[
+    {t:"Sếp không công bằng. Tìm việc mới.",s:0},
+    {t:"Buồn 1-2 ngày, book 1-1 hỏi rõ, plan 3 initiative.",s:3},
+    {t:"Chấp nhận, cố gắng hơn.",s:1},
+    {t:"Argue bằng list 10 proactive, yêu cầu regrade.",s:2}]},
+  {id:"C4",type:"C",sit:"PATI cân nhắc VP Thái Lan. Chưa biết thị trường. Sếp hỏi:",opts:[
+    {t:"'Em chưa rõ.'",s:0},
+    {t:"'Em nghĩ Thái OK vì gần VN.'",s:1},
+    {t:"'Em research.' Tối đọc 3-4 report, sáng gửi bullet.",s:3},
+    {t:"Google 1-2 fact, reply 5 phút.",s:2}]},
+  {id:"R5",type:"R",sit:"Pitch 'livestream shopping'. CEO ngắt lời sau 5': 'Chưa ready, next'. Bạn:",opts:[
+    {t:"Tức, không pitch nữa 6 tháng.",s:0},
+    {t:"Chấp nhận, chờ timing.",s:1},
+    {t:"Email sau: 'Em hiểu. 3 brand VN thành công. Pilot nhỏ test?'",s:3},
+    {t:"Argue: 'Shopee/Lazada/TikTok đều live, VN ready.'",s:2}]},
+  {id:"C5",type:"C",sit:"Join PATI 2 tuần. Thứ 6 chiều rảnh 2h. Bạn:",opts:[
+    {t:"Lướt FB/TikTok, về sớm.",s:0},
+    {t:"Ôn onboarding, làm task.",s:1},
+    {t:"Đọc deck/report 6 tháng team khác, note insight.",s:3},
+    {t:"Hỏi đồng đội có task giúp không, không thì ôn Excel.",s:2}]},
+];
+const CASE_TEXT = `PATI quản lý tài khoản Amazon US cho brand thực phẩm hữu cơ "GreenLife". Doanh số $120k/tháng, profit 22%. Ngày 15/3, Amazon suspend account với lý do "suspected inauthentic reviews" — 8 review 5-sao trong 2 ngày bị flag.
+
+PM Emily phát hiện: GreenLife không mua review. 8 reviews từ tài khoản real, verified purchase. Cùng thời điểm, competitor NaturePlus vừa launch sản phẩm tương tự giá rẻ hơn 15%. 1 trong 8 reviewer có history review nhiều GreenLife (loyal customer), nhưng Amazon AI detect pattern "unusual concentration".
+
+Timeline: Suspension >7 ngày → listing bị deindex, mất keyword 18 tháng. GreenLife CFO yêu cầu PATI solve 72h hoặc terminate ($15k/tháng retainer). Amazon Seller Support trả lời generic: "Submit Plan of Action, review 5-7 business days."
+
+Emily có 3 options: A) POA standard, submit, đợi 5-7 ngày. B) Escalate Amazon Brand Registry fast-track (cần trademark proof). C) Hire consultant $3k (claim 48h, 60% resolve rate).
+
+Nguồn lực: 2 junior chưa từng handle suspension. PATI có quen 1 Amazon AM (không phải AM phụ trách food). GreenLife có invoice, COA, không có lawyer.
+
+Risk: POA reject lần 1 → cơ hội appeal giảm 50%. Listing mất >10 ngày → competitor chiếm keyword.`;
+
+const CASE_Q = [
+  {q:"Doanh số tháng của GreenLife?",opts:[{t:"$15k"},{t:"$120k",c:true},{t:"$22k"},{t:"Không đủ thông tin"}]},
+  {q:"Lý do Amazon suspend?",opts:[{t:"Mua fake reviews"},{t:"Competitor report spam"},{t:"AI detect 'unusual concentration' review từ loyal customer",c:true},{t:"Sản phẩm vi phạm FDA"}]},
+  {q:"Risk LỚN NHẤT của Option A?",opts:[{t:"POA reject lần 1, khó appeal sau",c:true},{t:"GreenLife terminate 72h"},{t:"Junior không đủ skill"},{t:"Competitor chiếm hết market share"}]},
+  {q:"Sao phải verify trademark trước Option B?",opts:[{t:"Amazon Brand Registry yêu cầu trademark proof",c:true},{t:"Tránh bị sue"},{t:"CFO yêu cầu"},{t:"Không cần"}]},
+  {q:"Emily làm GÌ TRƯỚC TIÊN 24h?",opts:[{t:"Viết POA standard ngay"},{t:"Call Amazon AM quen + verify trademark + draft POA song song",c:true},{t:"Thuê consultant $3k ngay"},{t:"Xin CFO lùi deadline"}]},
+  {q:"POA lần 1 reject. Emily nên làm gì?",opts:[{t:"Resubmit y hệt"},{t:"Thuê lawyer đe dọa Amazon"},{t:"Phân tích rejection reason, bổ sung invoice/COA, POA dài + cụ thể hơn",c:true},{t:"Escalate Amazon exec LinkedIn"}]}
+];
+</script>
+<script>
+// ============================================================
+// JS LOGIC — Helper functions needed by inline onclicks
+// ============================================================
+// Phase2 FC data (defined inline in render function)
+
+// ── State ──
+let state = { name:'', email:'', role:'', exp:'', sjtAnswers:[], fcAnswers:[], caseAnswers:[], starText:'', startTime:null };
+let timers = { phase1:null, phase2:null, phase3:null, phase4:null };
+let currentPhase = 0;
+
+// ── Helper: show/hide ──
+function show(id) { document.getElementById(id).classList.remove('hide'); }
+function hide(id) { document.getElementById(id).classList.add('hide'); }
+
+// ── Timer ──
+function startTimer(minutes, cb, labelId) {
+  let total = Math.round(minutes * 60);
+  const display = document.getElementById('timerDisplay');
+  const bar = document.getElementById('timerBar');
+  const label = document.getElementById('phaseLabel');
+  bar.classList.remove('hide','timer-warn');
+  if(labelId) label.textContent = labelId;
+
+  function tick() {
+    const m = Math.floor(total / 60);
+    const s = total % 60;
+    display.textContent = '⏱ ' + m + ':' + String(s).padStart(2,'0');
+    if (total <= 60) { bar.classList.add('timer-warn'); }
+    if (total <= 0) { clearInterval(timers.phase3); hide('timerBar'); cb(); return; }
+    total--;
+  }
+  tick();
+  return setInterval(tick, 1000);
+}
+
+// ── Scroll to top ──
+function scrollTop() { window.scrollTo({top:0,behavior:'smooth'}); }
+
+// ── Word count ──
+function countWords(s) { return s.trim() ? s.trim().split(/\s+/).length : 0; }
+function starCount() {
+  const el = document.getElementById('starAnswer');
+  const cnt = countWords(el.value);
+  document.getElementById('starCount').textContent = cnt;
+  document.getElementById('starSubmitBtn').disabled = cnt < 80;
+}
+
+// ============================================================
+// QUIZ START
+// ============================================================
+function startQuiz() {
+  const name = document.getElementById('m_name').value.trim();
+  const email = document.getElementById('m_email').value.trim();
+  if (!name || !email) { alert('Nhập họ tên và email.'); return; }
+  state.name = name; state.email = email; state.role = document.getElementById('m_role').value.trim() || '(chưa điền)'; state.exp = document.getElementById('m_exp').value;
+  state.startTime = Date.now();
+  hide('screen-intro');
+  renderSJT();
+  show('screen-sjt');
+  scrollTop();
+}
+
+// ============================================================
+// PHASE 1: SJT
+// ============================================================
+function renderSJT() {
+  const c = document.getElementById('sjtContainer'); c.innerHTML = '';
+  SJT.forEach((s,i) => {
+    const div = document.createElement('div'); div.className = 'q-item';
+    const tags = `<span class="q-tag q-tag-${s.type}">${s.type==='R'?'Vượt khó':'Học hỏi'}</span>`;
+    let html = `<div class="q-text"><strong>${i+1}/10.</strong> ${s.sit} ${tags}</div><div class="opt-group">`;
+    s.opts.forEach((o,j) => {
+      const val = s.type + '-' + i + '-' + j;
+      html += `<label class="opt-item" onclick="sjtSelect(${i},${j},this)">
+        <span class="circle"></span>
+        <span class="opt-text">${o.t}</span>
+      </label>`;
+    });
+    html += '</div>'; div.innerHTML = html; c.appendChild(div);
+  });
+  updateSJTProgress();
+}
+
+function sjtSelect(sIdx, oIdx, el) {
+  const parent = el.closest('.q-item');
+  parent.querySelectorAll('.opt-item').forEach(x => x.classList.remove('active'));
+  el.classList.add('active');
+  state.sjtAnswers[sIdx] = oIdx;
+  updateSJTProgress();
+}
+
+function updateSJTProgress() {
+  const answered = state.sjtAnswers.filter(a => a !== undefined).length;
+  const pct = (answered / 10) * 100;
+  document.getElementById('sjtProgress').style.width = pct + '%';
+  document.getElementById('sjtNextBtn').disabled = answered < 10;
+}
+
+function sjtNext() {
+  if (state.sjtAnswers.filter(a => a !== undefined).length < 10) return;
+  hide('screen-sjt');
+  renderFC();
+  show('screen-fc');
+  scrollTop();
+}
+
+
+// ============================================================
+// PHASE 2: FORCED-CHOICE
+// ============================================================
+const FC = [
+  [{t:"Rủi ro cao nhưng học steep",tr:"C"},{t:"Áp lực deadline, tôi hiệu quả hơn",tr:"R"},{t:"Luôn giữ lời hứa 100%",tr:"L"},{t:"Thích ổn định hơn thử nghiệm",tr:"Cn"}],
+  [{t:"Thất bại → phân tích sai",tr:"R"},{t:"Đọc tài liệu ngoài scope",tr:"C"},{t:"Không bao giờ nói dối",tr:"L"},{t:"Dễ nản nếu kết quả không như ý",tr:"Rn"}],
+  [{t:"Hỏi 'tại sao' hơn chấp nhận SOP",tr:"C"},{t:"Bình tĩnh khi nhiều việc xảy ra",tr:"R"},{t:"Chăm chỉ hơn mọi người",tr:"L"},{t:"Thích quen thuộc hơn học mới",tr:"Cn"}],
+  [{t:"Vấn đề mới → excited hơn lo",tr:"C"},{t:"Bounce back nhanh sau feedback",tr:"R"},{t:"Học từ sai lầm người khác",tr:"Cn"},{t:"Cần time dài recover sau thất bại",tr:"Rn"}],
+  [{t:"Research competitor không assign",tr:"C"},{t:"Hiệu quả khi thiếu ngủ/stress",tr:"R"},{t:"Không bao giờ ghen tị",tr:"L"},{t:"Checklist rõ hơn explore",tr:"Cn"}],
+  [{t:"Project fail → học được gì",tr:"R"},{t:"Xem video/blog ngành ngoài giờ",tr:"C"},{t:"Được khen → mình xứng đáng",tr:"Rn"},{t:"Dễ bỏ khi obstacle nhiều",tr:"Rn"}],
+  [{t:"Hỏi dù sợ 'hỏi ngu'",tr:"C"},{t:"Giữ động lực khi team morale thấp",tr:"R"},{t:"Thích học sai lầm người khác",tr:"Cn"},{t:"Thoải mái khi không biết câu trả lời",tr:"C"},{t:"Cần encouragement từ sếp",tr:"Rn"}],
+  [{t:"Sign up course/webinar khi topic thú vị",tr:"C"},{t:"Chuyển nhanh giữa task khác",tr:"R"},{t:"Thích người cùng sở thích hơn",tr:"Cn"},{t:"Khi overwhelmed cần nghỉ vài ngày",tr:"Rn"}],
+  [{t:"Thử tool mới dù chưa ai dùng",tr:"C"},{t:"Setback → feedback, không failure",tr:"R"},{t:"Luôn đi đúng giờ",tr:"L"},{t:"Thích role rõ ràng hơn mơ hồ",tr:"Cn"}],
+  [{t:"Đọc postmortem team khác",tr:"C"},{t:"Dự án cancel → pivot nhanh",tr:"R"},{t:"Thoải mái khi không biết",tr:"C"},{t:"Cần sếp encouragement",tr:"Rn"}],
+  [{t:"Research trước khi hỏi đồng đội",tr:"C"},{t:"Handle nhiều ưu tiên mâu thuẫn",tr:"R"},{t:"Thích deadline rõ ràng",tr:"Rn"},{t:"Ít explore feature mới của tool",tr:"Cn"}],
+  [{t:"Subscribe newsletter/podcast ngành",tr:"C"},{t:"Idea reject → refine + pitch lại",tr:"R"},{t:"Không bao giờ phàn nàn",tr:"L"},{t:"Stress khi uncertainty nhiều",tr:"Rn"}],
+  [{t:"Shadowing người khác team",tr:"C"},{t:"Performance ổn khi khó khăn",tr:"R"},{t:"Thích góp ý cải tiến process",tr:"C"},{t:"Tránh conflict bằng im lặng",tr:"Rn"}],
+  [{t:"Test competitor product học UX",tr:"C"},{t:"Plan A fail → sẵn B, C",tr:"R"},{t:"Adaptable hơn nhiều người",tr:"Rn"},{t:"Chỉ học khi có assignment",tr:"Cn"}],
+  [{t:"Cuối tuần đọc case study/side project",tr:"C"},{t:"Năng lượng tốt sau tuần áp lực",tr:"R"},{t:"Luôn hoàn thành đúng hạn",tr:"L"},{t:"Cần môi trường yên tĩnh",tr:"Rn"}]
+];
+
+// FC state: per quad { most: idx, least: idx }
+let fcState = FC.map(() => ({ most:-1, least:-1 }));
+let fcPageIdx = 0;
+const FC_PER_PAGE = 5;
+
+function renderFC() {
+  const c = document.getElementById('fcContainer'); c.innerHTML = '';
+  fcPageIdx = 0;
+  renderFCPage();
+  updateFCProgress();
+}
+
+function renderFCPage() {
+  const c = document.getElementById('fcContainer'); c.innerHTML = '';
+  const start = fcPageIdx * FC_PER_PAGE;
+  const end = Math.min(start + FC_PER_PAGE, FC.length);
+  for (let qi = start; qi < end; qi++) {
+    const q = FC[qi]; const st = fcState[qi];
+    const div = document.createElement('div'); div.className = 'quad';
+    let html = `<h4>Bộ ${qi+1}/15 — Nhấp "M" (đúng nhất) và "L" (ít đúng nhất)</h4><div class="opt-group">`;
+    q.forEach((o, oi) => {
+      let cls = 'opt-item';
+      if (st.most === oi) cls += ' most';
+      if (st.least === oi) cls += ' least';
+      html += `<div class="${cls}" onclick="fcToggle(${qi},${oi},this)">
+        <span class="circle">${st.most===oi?'M':st.least===oi?'L':''}</span>
+        <span class="opt-text">${o.t}</span>
+      </div>`;
+    });
+    html += '</div></div>'; div.innerHTML = html; c.appendChild(div);
+  }
+}
+
+function fcToggle(qi, oi, el) {
+  const st = fcState[qi];
+  // Toggle: if already most → unset most; if already least → unset least
+  if (st.most === oi) { st.most = -1; } 
+  else if (st.least === oi) { st.least = -1; }
+  else if (st.most === -1) { st.most = oi; }
+  else if (st.least === -1 && oi !== st.most) { st.least = oi; }
+  else {
+    // Both already set: swap most to this, unset the old most
+    if (oi === st.least) { st.least = -1; }
+    else { st.most = oi; if (oi === st.least) st.least = -1; }
+  }
+  renderFCPage();
+  updateFCProgress();
+}
+
+function updateFCProgress() {
+  const done = fcState.filter(s => s.most >= 0 && s.least >= 0).length;
+  const total = FC.length;
+  const pct = (done / total) * 100;
+  document.getElementById('fcProgress').style.width = pct + '%';
+
+  const allDone = done === total;
+  document.getElementById('fcNextBtn').disabled = !allDone;
+
+  // Show/hide pagination — auto advance when page done
+  const start = fcPageIdx * FC_PER_PAGE;
+  const end = Math.min(start + FC_PER_PAGE, FC.length);
+  const pageDone = true;
+  for (let i = start; i < end; i++) {
+    if (fcState[i].most < 0 || fcState[i].least < 0) { pageDone = false; break; }
+  }
+  if (pageDone && end < FC.length) {
+    fcPageIdx++;
+    renderFCPage();
+  }
+  if (allDone) {
+    document.getElementById('fcNextBtn').textContent = 'Tiếp → Phần 3';
+  }
+}
+
+function fcNext() {
+  if (fcState.filter(s => s.most >= 0 && s.least >= 0).length < FC.length) return;
+  hide('screen-fc');
+  renderCase();
+  show('screen-case');
+  scrollTop();
+}
+
+// ============================================================
+// PHASE 3: CASE STUDY
+// ============================================================
+let caseElapsed = 0;
+let caseTimestamps = [];
+
+function renderCase() {
+  document.getElementById('caseText').innerHTML = CASE_TEXT.replace(/\n/g, '<br>');
+  const c = document.getElementById('caseQuestions'); c.innerHTML = '';
+  CASE_Q.forEach((q, qi) => {
+    const div = document.createElement('div'); div.className = 'case-q';
+    let html = `<h4>${qi+1}. ${q.q}</h4><div class="opt-group">`;
+    q.opts.forEach((o, oi) => {
+      html += `<div class="opt-item" onclick="caseSelect(${qi},${oi},this)">
+        <span class="circle"></span>
+        <span class="opt-text">${o.t}</span>
+      </div>`;
+    });
+    html += '</div>'; div.innerHTML = html; c.appendChild(div);
+  });
+
+  state.caseAnswers = [];
+  caseTimestamps = [];
+  startTimer(8, caseAutoSubmit, 'Phần 3/4 — Case');
+}
+
+function caseSelect(qi, oi, el) {
+  const parent = el.closest('.case-q');
+  parent.querySelectorAll('.opt-item').forEach(x => x.classList.remove('active'));
+  el.classList.add('active');
+  state.caseAnswers[qi] = oi;
+  caseTimestamps[qi] = Date.now();
+  // Enable submit when all 6 answered
+  document.getElementById('caseSubmitBtn').disabled = state.caseAnswers.filter(a => a !== undefined).length < 6;
+}
+
+function caseAutoSubmit() {
+  caseSubmit();
+}
+function caseSubmit() {
+  clearInterval(timers.phase3);
+  hide('timerBar');
+  hide('screen-case');
+  renderStar();
+  show('screen-star');
+  scrollTop();
+}
+
+// ============================================================
+// PHASE 4: STAR
+// ============================================================
+function renderStar() {
+  starCount();
+  startTimer(5, starAutoSubmit, 'Phần 4/4 — STAR');
+}
+function starAutoSubmit() {
+  starSubmit();
+}
+function starSubmit() {
+  clearInterval(timers.phase4);
+  hide('timerBar');
+  state.starText = document.getElementById('starAnswer').value.trim();
+  hide('screen-star');
+  computeResult();
+  show('screen-result');
+  scrollTop();
+}
+
+// ============================================================
+// SCORING ENGINE
+// ============================================================
+function computeResult() {
+  // ── Phase 1: SJT ──
+  let sjtR = 0, sjtC = 0;
+  SJT.forEach((s, i) => {
+    const ans = state.sjtAnswers[i];
+    if (ans !== undefined) {
+      if (s.type === 'R') sjtR += s.opts[ans].s;
+      else sjtC += s.opts[ans].s;
+    }
+  });
+
+  // ── Phase 2: Forced-choice ──
+  let fcR = 0, fcC = 0, fcLie = 0;
+  FC.forEach((q, qi) => {
+    const st = fcState[qi];
+    if (st.most >= 0) {
+      const tr = q[st.most].tr;
+      if (tr === 'R') fcR += 2;
+      else if (tr === 'C') fcC += 2;
+      else if (tr === 'L') fcLie++;
+      else if (tr === 'Rn') fcR -= 2;
+      else if (tr === 'Cn') fcC -= 2;
+    }
+    if (st.least >= 0) {
+      const tr = q[st.least].tr;
+      if (tr === 'R' || tr === 'Rn') fcR -= 1;
+      else if (tr === 'C' || tr === 'Cn') fcC -= 1;
+    }
+  });
+  fcR = Math.max(0, Math.min(18, fcR));
+  fcC = Math.max(0, Math.min(18, fcC));
+
+  // ── Phase 3: Case ──
+  let caseScore = 0;
+  CASE_Q.forEach((q, qi) => {
+    const ans = state.caseAnswers[qi];
+    if (ans !== undefined && q.opts[ans].c) caseScore++;
+  });
+
+  // Time bonus: if all answered within 6 min (360s), +1; under 4 min (240s) +2; quick but quality + bonus
+  let caseBonus = 0;
+  if (caseTimestamps.length >= 6 && state.caseAnswers.filter(a => a !== undefined).length === 6) {
+    const first = caseTimestamps.filter(t => t > 0);
+    if (first.length >= 6) {
+      const maxT = Math.max(...caseTimestamps);
+      const minT = Math.min(...caseTimestamps.filter(t => t > 0));
+      const totalSec = (maxT - minT) / 1000;
+      if (totalSec < 480 && totalSec > 30) caseBonus = 1;
+      if (totalSec < 180) caseBonus = 2;
+    }
+  }
+
+  // ── Phase 4: STAR heuristic ──
+  let starScore = 0;
+  const txt = state.starText.toLowerCase();
+  // Criteria 1: Specific situation (timeline, context)
+  if (/tháng|năm|tuần|ngày|th?áng\s+\d|202\d|khi|tình huống/.test(txt)) starScore += 1;
+  if (/tháng\s+\d|202\d/.test(txt)) starScore += 1; // has actual timeline
+  // Criteria 2: Learning method (multi-source)
+  let methodScore = 0;
+  if (/youtube|udemy|course|google|đọc|read|blog|tài liệu|research|search/.test(txt)) methodScore++;
+  if (/hỏi|mentor|đồng nghi?|review|feedback|senior|expert|người|ai đó/.test(txt)) methodScore++;
+  if (/thực hành|project|test|thử|làm thử|build|case|mini project|demo/.test(txt)) methodScore++;
+  starScore += Math.min(2, methodScore);
+  // Criteria 3: Concrete result
+  if (/kết quả|tăng|giảm|tiết kiệm|tiết kiệm|thời gian|doanh.số|client|hài lòng|cụ thể/.test(txt)) starScore += 1;
+  if (/\d+|phần trăm|%|\$|triệu|ngàn|giờ|ngày/.test(txt)) starScore += 1;
+  // Criteria 4: Learning extracted
+  if (/học được|nh?n ra|insight|bài học|lessons?|rút ra|từ đó|từ nay|sau này/.test(txt)) starScore += 1;
+  if (/áp dụng|pattern|transferred|transfer|reflect|reflection/.test(txt)) starScore += 1;
+  starScore = Math.min(8, starScore);
+
+  // ── Validity Flags ──
+  const flags = [];
+  // Lie scale: ≥2 L traits chosen as Most
+  if (fcLie >= 2) flags.push({type:'warning', text:'⚠️ Candidate chọn ≥2 câu "hoàn hảo" làm "Đúng nhất" — có thể faking social desirability'});
+  // Word count too low
+  const wc = countWords(txt);
+  if (wc < 80 && wc > 0) flags.push({type:'danger', text:'🔴 Phase 4 STAR dưới 80 từ — response quá ngắn, giảm reliability'});
+  if (wc === 0) flags.push({type:'danger', text:'🔴 Phase 4 STAR bỏ trống — không thể đánh giá curiosity quality'});
+  // Response time anomaly (Phase 3)
+  if (caseTimestamps.length >= 6) {
+    const valid = caseTimestamps.filter(t => t > 0);
+    if (valid.length >= 4) {
+      const gaps = [];
+      const sorted = [...valid].sort((a,b) => a-b);
+      for (let i = 1; i < sorted.length; i++) {
+        gaps.push((sorted[i] - sorted[i-1]) / 1000);
+      }
+      const avgGap = gaps.length > 0 ? gaps.reduce((a,b) => a+b, 0) / gaps.length : 0;
+      if (avgGap < 5) flags.push({type:'danger', text:'🔴 Phase 3 response time rất nhanh (<5s/câu) — có thể đọc lướt, không suy nghĩ'});
+    }
+  }
+
+  // ── Composite scores ──
+  const totalR = sjtR + fcR + caseScore + caseBonus; // max 15+18+6+5=44
+  const totalC = sjtC + fcC + starScore; // max 15+18+8 - 1 = 40 → capped 38
+
+  // ── Levels ──
+  function rLevel(s) {
+    if (s >= 35) return '🟢 Rất cao (≥35)';
+    if (s >= 28) return '🟡 Cao (28-34)';
+    if (s >= 20) return '🟠 Trung bình (20-27)';
+    return '🔴 Thấp (<20)';
+  }
+  function cLevel(s) {
+    if (s >= 32) return '🟢 Rất cao (≥32)';
+    if (s >= 25) return '🟡 Cao (25-31)';
+    if (s >= 18) return '🟠 Trung bình (18-24)';
+    return '🔴 Thấp (<18)';
+  }
+
+  // ── Recommendation matrix ──
+  function rec(r, c) {
+    if (r >= 28 && c >= 25) return {label:'🟢 HIRE NGAY — A-player profile', cls:'rec-hire'};
+    if (r >= 28 && c >= 18) return {label:'🟡 HIRE OK — Execution role, curiosity medium', cls:'rec-ok'};
+    if (r >= 28 && c < 18) return {label:'🟠 CONSIDER — Stable role only (Finance/Ops)', cls:'rec-consider'};
+    if (r >= 20 && c >= 25) return {label:'🟡 HIRE OK — Mid-IC, học nhanh', cls:'rec-ok'};
+    if (r >= 20 && c >= 18) return {label:'🟠 CONSIDER — Average profile, check fit', cls:'rec-consider'};
+    if (r >= 20 && c < 18) return {label:'🔴 PASS — Low curiosity', cls:'rec-pass'};
+    if (r < 20 && c >= 25) return {label:'🟠 CAREFUL — Creative fragile, cần support', cls:'rec-consider'};
+    return {label:'🔴 PASS — Misfit cho PATI', cls:'rec-pass'};
+  }
+
+  const rL = rLevel(totalR);
+  const cL = cLevel(totalC);
+  const recRes = rec(Math.min(44, totalR), Math.min(38, totalC));
+
+  // ── Render result ──
+  document.getElementById('resultMeta').textContent = `${state.name} · ${state.email} · ${state.role} · ${state.exp}`;
+
+  document.getElementById('rScore').textContent = Math.min(44, totalR);
+  document.getElementById('rLevel').textContent = rL;
+  document.getElementById('cScore').textContent = Math.min(38, totalC);
+  document.getElementById('cLevel').textContent = cL;
+
+  document.getElementById('p1r').textContent = sjtR;
+  document.getElementById('p1c').textContent = sjtC;
+  document.getElementById('p2r').textContent = fcR;
+  document.getElementById('p2c').textContent = fcC;
+  document.getElementById('p3').textContent = (caseScore + caseBonus) + ` (case ${caseScore} + time ${caseBonus})`;
+  document.getElementById('p4').textContent = starScore;
+  document.getElementById('totalR').textContent = Math.min(44, totalR);
+  document.getElementById('totalC').textContent = Math.min(38, totalC);
+
+  const recEl = document.getElementById('recBox');
+  recEl.className = 'rec-box ' + recRes.cls;
+  recEl.textContent = recRes.label;
+
+  // Flags
+  const flagEl = document.getElementById('validityFlags');
+  flagEl.innerHTML = flags.map(f => `<div class="flag-box ${f.type==='danger'?'danger':''}">${f.text}</div>`).join('');
+
+  // Copy block
+  const payload = `═══════════════════════════════════
+PATI ASSESSMENT v2.0 — KẾT QUẢ
+═══════════════════════════════════
+Họ tên     : ${state.name}
+Email      : ${state.email}
+Vị trí     : ${state.role}
+Kinh nghiệm: ${state.exp}
+Hoàn thành : ${new Date().toLocaleString('vi-VN')}
+───────────────────────────────────
+4-PHASE MULTI-METHOD RESULTS:
+───────────────────────────────────
+1. SJT — Resilience  : ${sjtR}/15
+1. SJT — Curiosity   : ${sjtC}/15
+2. FC — Resilience   : ${fcR}/18
+2. FC — Curiosity    : ${fcC}/18
+3. Case study        : ${caseScore + caseBonus}/11 (Q:${caseScore}, Time:${caseBonus})
+4. STAR (rubric)     : ${starScore}/8
+───────────────────────────────────
+COMPOSITE SCORES:
+  Resilience : ${Math.min(44,totalR)}/44 — ${rL.replace(/[🔴🟡🟢🟠]/g,'').trim()}
+  Curiosity  : ${Math.min(38,totalC)}/38 — ${cL.replace(/[🔴🟡🟢🟠]/g,'').trim()}
+───────────────────────────────────
+RECOMMENDATION:
+${recRes.label}
+───────────────────────────────────
+${flags.map(f => f.text).join('\n')}
+═══════════════════════════════════`;
+  document.getElementById('resultPayload').textContent = payload;
+}
+
+function copyResult() {
+  const txt = document.getElementById('resultPayload').textContent;
+  navigator.clipboard.writeText(txt).then(() => alert('✅ Copied! Paste email to hr@patigroup.com')).catch(() => alert('Select text + copy manually'));
+}
+
+// Init star count on load
+starCount();
+</script>
+</body>
+</html>
