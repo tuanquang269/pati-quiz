@@ -521,7 +521,7 @@ function updateFCProgress() {
   // Show/hide pagination — auto advance when page done
   const start = fcPageIdx * FC_PER_PAGE;
   const end = Math.min(start + FC_PER_PAGE, FC.length);
-  const pageDone = true;
+  let pageDone = true;
   for (let i = start; i < end; i++) {
     if (fcState[i].most < 0 || fcState[i].least < 0) { pageDone = false; break; }
   }
